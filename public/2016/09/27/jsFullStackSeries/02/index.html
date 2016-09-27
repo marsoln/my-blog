@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Marsoln 修行札记">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Marsoln">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="javascript全栈应用实践之路 (服务器搭建篇 一)"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Marsoln 修行札记" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="marsoln&#39;s blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>javascript全栈应用实践之路 (服务器搭建篇 一) - marsoln&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2016/09/27/jsFullStackSeries/02/">
+                javascript全栈应用实践之路 (服务器搭建篇 一)
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2016-09-27</span>
+            <a href="#disqus_thread" class="comments">Kommentare</a>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h4 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h4><p>首先,需要安装一些必要的软件 </p>
+<ul>
+<li><a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">nodejs(建议最新的6+) </a></li>
+<li><a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">mongodb</a></li>
+<li><a href="https://github.com/ServiceStack/redis-windows">redis(windows)</a></li>
+</ul>
+<p>请按照官方教程下载,然后无脑下一步下一步至全部安装完成.<br>当然<strong>mongodb在注册成系统服务</strong>以及<strong>windows系统下redis服务启动</strong>的时候可能会遇到各种小问题,但是网上有很多的教程和解决方案,我就不再赘述…</p>
+<p>…了吧?</p>
+<blockquote>
+<p><strong>用管理员身份打开cmd</strong> cd mongoDB的bin目录(必须留在该目录)<br>mkdir xxx  创建目录用于存放数据库文件<br>执行指令(注意logpath指向<strong>文件</strong> dbpath指向<strong>目录</strong> 都是绝对路径)<br><code>mongod --install --serviceName &#39;这个服务的名称&#39; --serviceDisplayName &#39;这个服务显示的名称&#39; --logpath D:/dbfiles/logs/day-one.log --dbpath D:/dbfiles/databases/ --directoryperdb</code><br>directoryperdb 每个数据库独立目录</p>
+</blockquote>
+<p>接下来,我们要先创建自己的服务器端.</p>
+<h4 id="来吧-Server"><a href="#来吧-Server" class="headerlink" title="来吧,Server!"></a>来吧,Server!</h4><p> 创建一个空的文件夹 MyServer<br><code>cd myserver &amp; npm init</code><br>一路回车之后,再安装几个依赖<br><code>npm i --save express express-session express-graphql graphql redis connect-redis mongoose nodemon body-parser properties-reader</code></p>
+<p><strong>然后你可以先去睡几个小时,装完之后让你女朋友叫醒你</strong></p>
+<p>哈哈哈,我开玩笑的<br>…<br>..<br>.<br>程序员<strong>怎么可能</strong>有女朋友!!! (╯‵□′)╯︵┻━┻</p>
+<p>装完之后,我们就可以规划一个比较合理的目录了,这次我们只打算做服务器端的部分,所以我们创建三个目录:<code>mkdir server framework core</code></p>
+<ul>
+<li>framework 业务无关的公共的组件 譬如加密等</li>
+<li>core 业务相关的公共组件  譬如数据模型等</li>
+<li>server 服务器文件 譬如路由 各种及filter等</li>
+</ul>
+<p>接下来,我们在进入server目录创建server.js:<code>cd server &amp; touch server.js</code> (cmd下的指令是<code>cd server &amp; cd .&gt;server.js</code> 下文将不再赘述)</p>
+<p>OK,现在我们在编辑器中打开server.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">let propReader = require(&apos;properties-reader&apos;)(&apos;server.properties&apos;)</div><div class="line">let express = require(&apos;express&apos;)</div><div class="line">let app = express()</div><div class="line">let server = require(&apos;http&apos;).createServer(app)</div><div class="line">let session = require(&apos;../framework/redis/session&apos;)</div><div class="line">let bodyParser = require(&apos;body-parser&apos;)</div><div class="line">let initRouters = require(&apos;./routes/Initialize&apos;)</div><div class="line">const PORT = propReader.get(&apos;server.port&apos;) || 80 // 设置应用占用的端口</div><div class="line"></div><div class="line">// 添加bodyParser和session插件</div><div class="line">app.use(bodyParser.json())</div><div class="line">app.use(bodyParser.urlencoded(&#123; extended: false &#125;))</div><div class="line">app.use(session)</div><div class="line">// 初始化路由</div><div class="line">initRouters(app)  </div><div class="line"></div><div class="line">server.listen(PORT, () =&gt; &#123;</div><div class="line">  console.log(`服务器启动在端口:$&#123;PORT&#125;`)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>好的,上面我们注册了一个httpServer,其中引用了两个自定义的module:<br><code>let session = require(&#39;../framework/redis/session&#39;)</code><br><code>let initRouters = require(&#39;./routes/Initialize&#39;)</code><br>接下来,我们去实现这两个模块.</p>
+<p>进入到framework目录,创建redis目录,进入之后创建session.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">let session = require(&apos;express-session&apos;)</div><div class="line">let RedisStore = require(&apos;connect-redis&apos;)(session)</div><div class="line">let client = require(&apos;./base&apos;)</div><div class="line"></div><div class="line">module.exports = session(&#123;</div><div class="line">  name: &apos;s&apos;,</div><div class="line">  store: new RedisStore(&#123;</div><div class="line">    client: client,</div><div class="line">    prefix: &apos;RS&apos;  </div><div class="line">  &#125;),</div><div class="line">  secret: &apos;keyboard cat&apos;,  </div><div class="line">  resave: true,</div><div class="line">  saveUninitialized: false</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>接着,在本目录创建 base.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">let redis = require(&apos;redis&apos;)</div><div class="line">let propReader = require(&apos;properties-reader&apos;)(&apos;server.properties&apos;)</div><div class="line">let client = redis.createClient(propReader.get(&apos;redisServer.port&apos;), propReader.get(&apos;redisServer.ip&apos;), &#123;&#125;)</div><div class="line"></div><div class="line">client</div><div class="line">  .on(&apos;ready&apos;, ()=&gt; &#123;</div><div class="line">    console.log(`redis 连接成功`)</div><div class="line">  &#125;)</div><div class="line">  .on(&apos;reconnecting&apos;, ()=&gt; &#123;</div><div class="line">    console.log(`redis 重连中...`)</div><div class="line">  &#125;)</div><div class="line">  .on(&apos;error&apos;, (err)=&gt; &#123;</div><div class="line">    console.error(`redis 连接出错:$&#123;err&#125;`)</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">module.exports = client</div></pre></td></tr></table></figure></p>
+<p>恩,这里我们把配置写到了一个配置文件里,接下来让我们回到根目录,创建配置文件server.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># server 服务器配置</div><div class="line">server.port=8001</div><div class="line"># dbServer 数据库服务器配置</div><div class="line">dbServer.ip=localhost</div><div class="line">dbServer.port=27010</div><div class="line">dbServer.name=test</div><div class="line"></div><div class="line"># redisServer redis服务器配置</div><div class="line">redisServer.ip=localhost</div><div class="line">redisServer.port=6379</div></pre></td></tr></table></figure></p>
+<p>好的,接下来我们要再回到server目录,创建routes文件夹,在下面创建一个叫做Initialize.js的文件,在这里我们要返回一个初始化路由的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">let indexRoutes = require(&apos;./actions/index&apos;)</div><div class="line">let graphqlRoutes = require(&apos;./graphql/index&apos;)</div><div class="line"></div><div class="line">module.exports = function (app) &#123;</div><div class="line">    app.use(&apos;/&apos;, indexRoutes)</div><div class="line">    app.use(&apos;/graphql&apos;, graphqlRoutes)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们在Initialize里注册两个路由,一个是/index,另外一个是/graphql.<br>其中的index我们先将其创建在server/routes/actions目录中,命名为index.js,简单实现一下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let router = require(&apos;express&apos;).Router()</div><div class="line"></div><div class="line">router.get([&apos;/&apos;, &apos;/index&apos;], (req, res) =&gt; &#123;</div><div class="line">	res.send(&#123;</div><div class="line">		title: &apos;来啊,互相伤害啊!&apos;,</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">module.exports = router</div></pre></td></tr></table></figure></p>
+<p>接下来需要实现graphql/index.js,但是在这之前,我们要先构建一个用户模型,也就是一个Schema.我们进入core目录创建schemas文件夹,在下面创建user.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">module.exports = function (mongoose) &#123;</div><div class="line">    return mongoose.Schema(&#123;</div><div class="line">        username: &#123;</div><div class="line">            type: String,</div><div class="line">            required: true</div><div class="line">        &#125;,</div><div class="line">        salt: &#123;</div><div class="line">            type: String,</div><div class="line">            required: true</div><div class="line">        &#125;,</div><div class="line">        hash: &#123;</div><div class="line">            type: String,</div><div class="line">            required: true</div><div class="line">        &#125;,</div><div class="line">        nickname: &#123;</div><div class="line">            type: String</div><div class="line">        &#125;,</div><div class="line">        avatar: &#123;</div><div class="line">            type: String,</div><div class="line">            &apos;default&apos;: &apos;/images/avatar_default.jpg&apos;</div><div class="line">        &#125;,</div><div class="line">        gender: &#123;</div><div class="line">            type: String,</div><div class="line">            &apos;enum&apos;: [&apos;男&apos;, &apos;女&apos;]</div><div class="line">        &#125;,</div><div class="line">        age: &#123;</div><div class="line">            type: Number,</div><div class="line">            min: 1,</div><div class="line">            max: 120</div><div class="line">        &#125;,</div><div class="line">        city: &#123;</div><div class="line">            type: String</div><div class="line">        &#125;,</div><div class="line">        hometown: &#123;</div><div class="line">            type: String</div><div class="line">        &#125;,</div><div class="line">        phone: &#123;</div><div class="line">            type: String</div><div class="line">        &#125;,</div><div class="line">        email: &#123;</div><div class="line">            type: String</div><div class="line">        &#125;,</div><div class="line">        birthday: &#123;</div><div class="line">            type: Date</div><div class="line">        &#125;,</div><div class="line">        address: &#123;</div><div class="line">            type: String</div><div class="line">        &#125;,</div><div class="line">        createdate: &#123;</div><div class="line">            type: Date,</div><div class="line">            &apos;default&apos;: Date.now()</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后我们在core的根目录里添加一个models.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">const mongoose = require(&apos;mongoose&apos;)</div><div class="line">mongoose.Promise = global.Promise</div><div class="line">const propReader = require(&apos;properties-reader&apos;)(&apos;server.properties&apos;)</div><div class="line">let db = mongoose.createConnection(</div><div class="line">    `mongodb://$&#123;propReader.get(&apos;dbServer.ip&apos;)&#125;/$&#123;propReader.get(&apos;dbServer.name&apos;)&#125;`,</div><div class="line">    &#123; replset: &#123; poolSize: 10 &#125; &#125;</div><div class="line">)</div><div class="line"></div><div class="line">// 成功链接数据库</div><div class="line">db.once(&apos;open&apos;, function () &#123;</div><div class="line">    console.log(&apos;mongodb 连接成功!&apos;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">// 链接数据库失败</div><div class="line">db.on(&apos;error&apos;, function (err) &#123;</div><div class="line">    console.log(`mongodb 连接错误: $&#123;err&#125;`)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">const CREATE_MODEL = function (key, model) &#123;</div><div class="line">    return db.model(key, model)</div><div class="line">&#125;</div><div class="line"></div><div class="line">const SCHEMAS = [&apos;user&apos;]</div><div class="line"></div><div class="line">let schemaMapper = &#123;&#125;</div><div class="line">SCHEMAS.forEach(function (key) &#123;</div><div class="line">    schemaMapper[key] = () =&gt; CREATE_MODEL(key, require(`./schemas/$&#123;key&#125;`)(mongoose))</div><div class="line">&#125;, this)</div><div class="line"></div><div class="line">module.exports = schemaMapper</div></pre></td></tr></table></figure></p>
+<p>好的,下面我们就可以回到刚才的server/routes/里创建graphql目录,然后在里面创建index.js:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">let UserModel = require(&apos;../../../core/models&apos;).user()  // 获取刚才的用户模型的数据库连接</div><div class="line">let &#123;</div><div class="line">    GraphQLSchema,</div><div class="line">    GraphQLObjectType,</div><div class="line">    GraphQLString,</div><div class="line">    GraphQLList,</div><div class="line">    GraphQLInt,</div><div class="line">    GraphQLNonNull,</div><div class="line">    GraphQLBoolean,</div><div class="line">&#125; = require(&apos;graphql&apos;)</div><div class="line"></div><div class="line">// 创建用户模型对应的graphql类型</div><div class="line">let UserType = new GraphQLObjectType(&#123;</div><div class="line">    name: &apos;user&apos;,</div><div class="line">    description: &apos;user model&apos;,</div><div class="line">    fields: &#123;</div><div class="line">        id: &#123;</div><div class="line">            type: GraphQLString,</div><div class="line">            resolve: o =&gt; o[&apos;_id&apos;]</div><div class="line">        &#125;,</div><div class="line">        nickname: &#123;</div><div class="line">            type: GraphQLString,</div><div class="line">            resolve: o =&gt; o.nickname</div><div class="line">        &#125;,</div><div class="line">        username: &#123;</div><div class="line">            type: GraphQLString,</div><div class="line">            resolve: o =&gt; o.username</div><div class="line">        &#125;,</div><div class="line">        age: &#123;</div><div class="line">            type: GraphQLString,</div><div class="line">            resolve: o =&gt; o.age</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">// 创建一个用户的集合类型</div><div class="line">let UserListType = new GraphQLList(UserType)</div><div class="line"></div><div class="line">// 创建graphql的Schema</div><div class="line">let schema = new GraphQLSchema(&#123;</div><div class="line">    query: new GraphQLObjectType(&#123;</div><div class="line">        name: &apos;UsersQuery&apos;,</div><div class="line">        description: &apos;查询用户信息&apos;,</div><div class="line">        fields: &#123;</div><div class="line">            userList: &#123;</div><div class="line">                type: UserListType,</div><div class="line">                description: &apos;用户列表&apos;,</div><div class="line">                resolve(root, param, session) &#123;</div><div class="line">                    return UserModel.find()</div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            user: &#123;</div><div class="line">                type: UserType,</div><div class="line">                description: &apos;指定用户信息&apos;,</div><div class="line">                args: &#123;</div><div class="line">                    id: &#123;</div><div class="line">                        type: GraphQLString,</div><div class="line">                        require: true,</div><div class="line">                    &#125;,</div><div class="line">                &#125;,</div><div class="line">                resolve(root, params, session) &#123;</div><div class="line">                    return UserModel.findOne(&#123;</div><div class="line">                        _id: params.id</div><div class="line">                    &#125;)</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;),</div><div class="line">    mutation: new GraphQLObjectType(&#123;</div><div class="line">        name: &apos;UsersMutation&apos;,</div><div class="line">        description: &apos;修改用户信息&apos;,</div><div class="line">        fields: &#123;</div><div class="line">            updateUserProfile: &#123;</div><div class="line">                type: GraphQLBoolean,</div><div class="line">                description: &apos;修改指定用户的个人资料&apos;,</div><div class="line">                args: &#123;</div><div class="line">                    id: &#123;</div><div class="line">                        type: GraphQLString,</div><div class="line">                        require: true,</div><div class="line">                    &#125;,</div><div class="line">                    terms: &#123;</div><div class="line">                        type: GraphQLString,</div><div class="line">                        require: true</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line">                resolve(root, params, session) &#123;</div><div class="line">                    let tempModel = JSON.parse(params.terms)</div><div class="line">                    return UserModel</div><div class="line">                        .findOneAndUpdate(&#123;</div><div class="line">                            _id: params.id</div><div class="line">                        &#125;, tempModel)</div><div class="line">                        .then((_d) =&gt; &#123; return !!_d &#125;)  </div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">// 构造graphql的路由</div><div class="line">let graphqlRoutes = require(&apos;express-graphql&apos;)(req =&gt; (&#123;</div><div class="line">    schema: schema,</div><div class="line">    context: req.session,</div><div class="line">    graphiql: true</div><div class="line">&#125;))</div><div class="line"></div><div class="line">module.exports = graphqlRoutes</div></pre></td></tr></table></figure></p>
+<p>目前为止,我们已经创建了一个简单的服务器,目录结构是这样的</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/140939-afe64974745a40d9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tree.jpg"></p>
+<p>虽然很多细节并不完善,但是总要一步一步来.</p>
+<p>下面让我们在package.json里的scripts下添加一个debug指令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;debug&quot;:&quot;nodemon server/server.js&quot;</div></pre></td></tr></table></figure></p>
+<p>保存后,在项目根目录打开控制台 输入<code>npm run debug</code> (确保你的mongodb和redis服务都已经开启)就会看到控制台的输出 服务器已经运行</p>
+<p>接下来在浏览器访问<a href="http://localhost:8001" target="_blank" rel="external">http://localhost:8001</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/140939-5180874a327e2db8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p> 也可以访问 <a href="http://localhost:8001/graphql" target="_blank" rel="external">http://localhost:8001/graphql</a> 查看graphql调试器 </p>
+<p>我们现在还没有用户数据,所以请求到的结果是空,下一章<a href="http://www.jianshu.com/p/ccd3f3cdc5b4" target="_blank" rel="external">我们将逐步完善服务器端功能,并且开始构建我们的web端之旅</a></p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/javascript-全栈-服务器搭建/">#javascript 全栈 服务器搭建</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    欢迎来到Marsoln的博客
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2016/09/27/jsFullStackSeries/03/">javascript全栈应用实践之路 (服务器搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2016/09/27/jsFullStackSeries/02/">javascript全栈应用实践之路 (服务器搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2016/09/27/jsFullStackSeries/01/">javascript全栈应用实践之路(简述)</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/marsoln/blog">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/marsoln1988">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:marsoln1988@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    Hexo & Alpha-Dust What A Magic! ❤ by Marsoln
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

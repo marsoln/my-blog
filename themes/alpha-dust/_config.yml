@@ -1,0 +1,32 @@
+# Logo (Font Awesome Class)
+fa_logo: fa-cube
+
+# Header
+menu:
+  Home: /
+  Archives: /archives
+
+# Default post title
+default_post_title: 名字都没有你敢信
+
+# Archive Date Format
+archive_date_format: YYYY-MM-DD
+
+# Comments.
+comments:
+  # Disqus comments
+  disqus_shortname:
+
+# Google Analytics Tracking ID
+google_analytics:
+
+# Social Accounts
+twitter_url: https://twitter.com/marsoln1988
+github_url: https://github.com/marsoln/blog
+email_url: marsoln1988@gmail.com
+
+# Footer About Text
+footer_about: "欢迎来到Marsoln的博客"
+
+#Footer Copyright Line
+footer_copyright: "Hexo & Alpha-Dust What A Magic! ❤ by Marsoln"
