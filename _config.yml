@@ -69,6 +69,6 @@ theme: alpha-dust
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:marsoln/blog.git
+  repo: git@github.com:marsoln/myBlog.git
   branch: master
 
