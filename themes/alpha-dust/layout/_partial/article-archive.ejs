@@ -1,5 +1,5 @@
 <div class="archive-post">
-    <a href="<%- url_for('myBlog/'+item.path)%>">
+    <a href="<%- url_for(item.path)%>">
         <span class="archive-date">
             <%- item.date.format(theme.archive_date_format) %>
         </span>

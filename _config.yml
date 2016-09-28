@@ -7,13 +7,13 @@ title: marsoln's blog
 subtitle: "大道无门，千差有路；透得此关，乾坤独步"
 description: "Marsoln 修行札记"
 author: Marsoln
-language: 
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://github.com/marsoln/myBlog
-root: /
+url: https://github.com/marsoln/
+root: /myBlog
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
