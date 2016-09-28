@@ -3,8 +3,8 @@ fa_logo: fa-cube
 
 # Header
 menu:
-  Home: /myBlog
-  Archives: /myBlog/archives
+  首页: /myBlog
+  归档: /myBlog/archives
 
 # Default post title
 default_post_title: 名字都没有你敢信
@@ -26,7 +26,7 @@ github_url: https://github.com/marsoln/myBlog
 email_url: marsoln1988@gmail.com
 
 # Footer About Text
-footer_about: "欢迎来到Marsoln的博客"
+footer_about: "如果有问题欢迎提ISSUE"
 
 #Footer Copyright Line
 footer_copyright: "Hexo & Alpha-Dust What A Magic! ❤ by Marsoln"
