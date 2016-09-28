@@ -17,11 +17,12 @@
         "hexo-renderer-stylus": "^0.3.1",
         "hexo-server": "^0.2.0"
     },
-    "description": "> 从今天起,养成写博客的好习惯.  \r > 千里之行,始于足下.",
+    "description": "从今天起,养成写博客的好习惯.",
     "main": "index.js",
     "devDependencies": {},
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "hexo generate"
     },
     "repository": {
         "type": "git",
