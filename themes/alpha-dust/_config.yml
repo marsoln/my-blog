@@ -3,8 +3,8 @@ fa_logo: fa-cube
 
 # Header
 menu:
-  首页: /myBlog
-  归档: /myBlog/archives
+  首页: /
+  归档: /archives
 
 # Default post title
 default_post_title: 名字都没有你敢信
