@@ -1,11 +1,11 @@
-prev: Older Posts
-next: Newer Posts
-comment: Comments
-archive_a: Archives
-archive_b: "Archives: %s"
-about: About
-recent_posts: "Recent Posts"
-categories: "Categories"
-default_post_title: "Untitled"
-category: Category
-tag: Tag
+prev: 上一页
+next: 下一页
+comment: 留言
+archive_a: 归档
+archive_b: 归档：%s
+about: 关于
+recent_posts: "最近发布"
+categories: "分类"
+default_post_title: "名儿都没起"
+category: 种类
+tag: 标签
