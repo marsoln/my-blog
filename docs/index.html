@@ -123,6 +123,308 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/myBlog/2016/09/28/踩过的坑/">
+                踩过的坑
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2016-09-28</span>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h3 id="IE-系列"><a href="#IE-系列" class="headerlink" title="IE 系列"></a>IE 系列</h3><ul>
+<li>IE11在跨站引用的样式文件中的url(比如字体文件路径)解析时,会将document文档的域作为当前域,而不是该样式文件的域.</li>
+<li>在IE8中使用respond.js去使之支持css3媒体查询的时候,值得注意的是<strong>respond默认不会加载跨域样式资源</strong>,</li>
+<li>在IE8中实现数据可视化,千万不要用基于canvas绘图的插件+excanvas,这是自寻死路.还是找找svg+vml绘图的插件吧,比如highcharts之类的.效率问题.</li>
+</ul>
+<h3 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h3><ul>
+<li>XMLHttpRequest的<code>setRequestHeader</code>要在<code>open</code>后进行</li>
+<li>在跨域的POST请求,需要携带cookie身份信息时,XMLHttpRequest的<code>withCredentials</code>要在<code>open</code>后,设置为<code>true</code>(对应的,服务器要有<code>Access-Control-Allow-Credentials: true</code>的responseHeader)</li>
+</ul>
+<h3 id="IOS-微信X5"><a href="#IOS-微信X5" class="headerlink" title="IOS 微信X5"></a>IOS 微信X5</h3><ul>
+<li>不支持canvas.resetTransform()</li>
+<li>不支持Array.fill</li>
+<li>不支持Array.findIndex </li>
+</ul>
+<h3 id="Android-微信X5"><a href="#Android-微信X5" class="headerlink" title="Android 微信X5"></a>Android 微信X5</h3><ul>
+<li>不支持字符串模板</li>
+</ul>
+<h1 id="NODEJS"><a href="#NODEJS" class="headerlink" title="NODEJS"></a>NODEJS</h1><h3 id="MSBuild-Error-MSB4132-错误"><a href="#MSBuild-Error-MSB4132-错误" class="headerlink" title="MSBuild Error MSB4132 错误"></a>MSBuild Error MSB4132 错误</h3><p>该错误是由于node-gyp默认使用2.0版本的msbuild,可能和当前机器上的msbuild版本不一致导致的.</p>
+<blockquote>
+<p>msbuild error msb4132 the tools version 2.0 is unrecognized. available tools versions are 4.0</p>
+</blockquote>
+<ul>
+<li>首先检查Python安装的版本和系统变量</li>
+<li>然后检查是否安装MS build tools</li>
+<li>接下来卸载node-gyp(高版本的npm里node-gyp不再是独立的包 不能卸载)</li>
+<li>告诉npm当前系统msbuild的版本<ul>
+<li>可以设置npm全局配置 <code>npm config set msvs_version xxxx --global</code> xxxx代表版本 2012/2013/2015  </li>
+<li>或者在npm的 rebuild|install 某些需要编译的包时加上msvs_version的指定设置 <code>npm install &lt;module&gt; --msvs_version=xxxx</code></li>
+</ul>
+</li>
+<li>重装node-gyp</li>
+</ul>
+<h3 id="MSBuild-Error-MSB4019-错误"><a href="#MSBuild-Error-MSB4019-错误" class="headerlink" title="MSBuild Error MSB4019 错误"></a>MSBuild Error MSB4019 错误</h3><p>这个错误是由于node-gyp在build一些项目,没有找到系统配置的microsoft.cpp.default.props文件位置导致的</p>
+<ul>
+<li>首选,要确保已经安装了vs,譬如vs 2015(V140),如果没有安装那是找不到这个文件的,起码win10下我装了<code>vcredist_x64 2013</code>是没有的</li>
+<li>其次,确保路径设置正确<ul>
+<li>打开注册表确认<code>HKLM\SOFTWARE\Microsoft\MSBuild\ToolsVersions\4.0</code>路径下的<code>VCTargetsPath</code>的值为<code>$(MSBuildExtensionsPath32)\Microsoft.Cpp\v4.0\V140</code>,V140是vs2015的路径,其余版本还得视情况而定</li>
+<li>也可以打开cmd,设置VCTargetsPath路径 <code>set VCTargetsPath=c:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140</code>,不过这个方式cmd关了就没用了</li>
+</ul>
+</li>
+<li>重新 <code>npm rebuild node-sass</code></li>
+</ul>
+<h3 id="Babel-Gulp使用-Symbol-iterator-时编译出现错误"><a href="#Babel-Gulp使用-Symbol-iterator-时编译出现错误" class="headerlink" title="Babel-Gulp使用[Symbol.iterator]时编译出现错误"></a>Babel-Gulp使用[Symbol.iterator]时编译出现错误</h3><blockquote>
+<p>npm install babel-plugin-transform-runtime</p>
+</blockquote>
+<p>然后在</p>
+<pre><code>gulp.task(&apos;default&apos;, ()=&gt; {
+  return gulp
+    .src(&apos;app.js&apos;)
+    .pipe(babel({
+      presets: [&apos;es2015&apos;],
+      plugins: [&apos;transform-runtime&apos;]
+    }))
+    .pipe(gulp.dest(&apos;dist&apos;))
+    ;
+});
+</code></pre><p>但是编译完成后的文件模块的路径出现了问题</p>
+<pre><code>Error: Cannot find module &apos;babel-runtime/core-js/get-iterator&apos;
+    at Function.Module._resolveFilename (module.js:337:15)
+    at Function.Module._load (module.js:287:25)
+    at Module.require (module.js:366:17)
+    at require (module.js:385:17)
+    at Object.&lt;anonymous&gt; (C:\Users\Administrator\Desktop\Marsoln Licher\Lib\exampleProj\dist\app.js:3:21)
+    at Module._compile (module.js:435:26)
+    at Object.Module._extensions..js (module.js:442:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:311:12)
+    at Function.Module.runMain (module.js:467:10)
+
+尚未有什么好的解决方法,估计是其自身的问题,babel-gulp的repo里也有对应的[ISSUE](https://github.com/babel/gulp-babel/issues/50 &quot;Cannot find module &apos;babel-runtime/regenerator&apos;&quot;)
+</code></pre><h1 id="ELM"><a href="#ELM" class="headerlink" title="ELM"></a>ELM</h1><h3 id="windows环境下-elm-package-install-elm-make-出现错误permission-denied"><a href="#windows环境下-elm-package-install-elm-make-出现错误permission-denied" class="headerlink" title="windows环境下 elm-package install/elm-make 出现错误permission denied"></a>windows环境下 elm-package install/elm-make 出现错误permission denied</h3><pre><code>elm-make: elm-lang-core-5204441: MoveFileEx &quot;elm-lang-core-5204441&quot; &quot;2.1.0&quot;: permission denied (Access is denied.)
+</code></pre><p>详情参见 <a href="https://github.com/elm-lang/elm-platform/issues/81">ISSUE</a><br>分析错误,发现是elm包管理器在下载pkg之后需要创建一个版本号然后将对应的文件移动到其目录下,这个动作在windows平台上有安全问题,所以操作失败.<br>临时解决方法是手动移动<code>elm-lang-core-5204441</code>文件夹到<code>elm-stuff/packages/elm-lang/core/</code>目录下,重命名目录名称为<code>2.1.0</code></p>
+<h1 id="REACT-NATIVE"><a href="#REACT-NATIVE" class="headerlink" title="REACT-NATIVE"></a>REACT-NATIVE</h1><h3 id="windows环境下-android开发"><a href="#windows环境下-android开发" class="headerlink" title="windows环境下 android开发"></a>windows环境下 android开发</h3><pre><code>- socket.io 出现引用错误,初步估计是因为socket.io和react-native都是用webpack打包,所以查找引用目录出现了问题,
+于是将socket.io.js(打包后的文件)作为一个单独模块添加到项目里,
+然后报了一些navigator的错误(因为根据浏览器的userAgent判断环境),无脑的去掉这些地方就能用了
+</code></pre>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/myBlog/2016/09/28/工具使用/">
+                工具使用
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2016-09-28</span>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="生成ssh"><a href="#生成ssh" class="headerlink" title="生成ssh"></a>生成ssh</h3><pre><code>- 配置全局设置 `git config --global user.name &quot;username&quot;` `git confgi --global user.email &quot;example@xxx.com&quot;`
+- 生成ssh `ssh-keygen -t rsa -C &quot;example@xxx.com&quot;` 会在C:\User\xxx目录下生成.ssh目录
+- 将生成的.ssh目录中的id_rsa.pub的内容添加到gitlab/github的个人账户的ssh-key
+- 验证 ssh 是否添加成功 `ssh git@github.com`
+</code></pre><h3 id="解决git-clone时文件目录过长的方法"><a href="#解决git-clone时文件目录过长的方法" class="headerlink" title="解决git clone时文件目录过长的方法"></a>解决git clone时文件目录过长的方法</h3><pre><code>修改git设置 `git config --system core.longpaths true`
+</code></pre><h1 id="VS-CODE"><a href="#VS-CODE" class="headerlink" title="VS CODE"></a>VS CODE</h1><h3 id="配置代码段"><a href="#配置代码段" class="headerlink" title="配置代码段"></a>配置代码段</h3><ul>
+<li><code>ctrl + p</code> 打开quick open</li>
+<li>输入 <code>&gt;snippets</code> 回车</li>
+<li>进入到代码段语言选择输入栏,输入你想编辑的代码段使用的语言,譬如javascript,回车</li>
+<li>打开一个名称为javascript.json的配置文件</li>
+<li><p>假设我们要一个控制台打印的代码段,缩写为<code>_cl</code>,则需要添加如下配置</p>
+<pre><code>&quot;Console log&quot;: {    // 代码段的名称
+    &quot;prefix&quot;: &quot;_cl&quot;,    // 触发代码段的缩写
+    &quot;body&quot;: [
+        &quot;console.log(&apos;$1&apos;)&quot;,    // 代码段的第一行 $1表示第一个变量
+        &quot;$2&quot;    // 代码段的第二行
+    ],
+    &quot;description&quot;: &quot;输出到控制台&quot; // 代码段的描述
+}
+</code></pre></li>
+<li><p>保存即生效,当然只能在你指定的语言中生效</p>
+</li>
+</ul>
+<h1 id="GULP-WEBPACK"><a href="#GULP-WEBPACK" class="headerlink" title="GULP/WEBPACK"></a>GULP/WEBPACK</h1><h3 id="多入口打包ES6模块化文件"><a href="#多入口打包ES6模块化文件" class="headerlink" title="多入口打包ES6模块化文件"></a>多入口打包ES6模块化文件</h3><pre><code>var gulp = require(&apos;gulp&apos;)
+var webpack = require(&apos;webpack-stream&apos;)
+var uglify = require(&apos;gulp-uglify&apos;)
+var through = require(&apos;through2&apos;)
+
+gulp.task(&apos;packagedScripts&apos;, () =&gt; {
+    gulp.src(&apos;./src/scripts/entrances/**/*&apos;)
+        .pipe(through.obj(function (file, enc, cb) {
+            var __filename = file.path.split(&apos;\\&apos;).reverse()[0]
+            gulp.src(file.path)
+                .pipe(webpack({
+                    output: {
+                        filename: __filename
+                    },
+                    module: {
+                        loaders: [
+                            {
+                                test: /\.js$/,
+                                exclude: /node_modules/,
+                                loader: &apos;babel&apos;,
+                                query: {
+                                    presets: [&apos;es2015&apos;]
+                                }
+                            }
+                        ]
+                    }
+                }))
+                .pipe(uglify())
+                .pipe(gulp.dest(&apos;./src/scripts/packaged&apos;))  // 输出到指定目录
+            cb()
+        }))
+})
+</code></pre><h3 id="gulp-rev-all-gulp-filter-生成文件hash值-并替换对其的引用"><a href="#gulp-rev-all-gulp-filter-生成文件hash值-并替换对其的引用" class="headerlink" title="gulp-rev-all,gulp-filter 生成文件hash值 并替换对其的引用"></a>gulp-rev-all,gulp-filter 生成文件hash值 并替换对其的引用</h3><pre><code>var gulp = require(&apos;gulp&apos;)
+var sass = require(&apos;gulp-sass&apos;)
+var imagemin = require(&apos;gulp-imagemin&apos;)
+var uglify = require(&apos;gulp-uglify&apos;)
+var cssMinify = require(&apos;gulp-minify-css&apos;)
+var RevAll = require(&apos;gulp-rev-all&apos;)
+var filter = require(&apos;gulp-filter&apos;)
+
+var buildFunc = () =&gt; {
+    var jsFilter = filter(&apos;**/*.js&apos;)
+    var htmlFilter = filter(&apos;**/*.html&apos;)
+    var cssFilter = filter(&apos;**/*.css&apos;)
+    var picFilter = filter([&apos;**/*.jpg&apos;, &apos;**/*.png&apos;])
+
+    var revAll = RevAll({
+        dontGlobal: [&apos;.scss&apos;],
+        dontRenameFile: [&apos;.html&apos;],
+        dontSearchFile: [&apos;.css&apos;],
+        transformPath: function(rev) {
+            return rev
+                .replace(&apos;scripts/&apos;, &apos;dist/scripts/&apos;)
+                .replace(&apos;style/&apos;, &apos;dist/style/&apos;)
+                .replace(&apos;images/&apos;, &apos;dist/images/&apos;)
+        }
+    })
+
+    var v = gulp.src(&apos;src/**/*&apos;)
+        .pipe(revAll.revision());
+
+    // 压缩js
+    v.pipe(jsFilter)
+        .pipe(uglify())
+        .pipe(gulp.dest(&apos;./dist&apos;));
+
+    // 压缩css
+    v.pipe(cssFilter)
+        .pipe(cssMinify())
+        .pipe(gulp.dest(&apos;./dist&apos;));
+
+    // 压缩图片
+    v.pipe(picFilter)
+        .pipe(imagemin())
+        .pipe(gulp.dest(&apos;./dist&apos;))
+
+    // 生成index.html
+    v.pipe(htmlFilter)
+        .pipe(gulp.dest(&apos;./&apos;));
+}
+</code></pre>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/myBlog/2016/09/28/奇技淫巧/">
+                奇技淫巧
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2016-09-28</span>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="generator-生成i内的-fibonacci数组"><a href="#generator-生成i内的-fibonacci数组" class="headerlink" title="generator 生成i内的 fibonacci数组"></a>generator 生成i内的 fibonacci数组</h3><pre><code>let i = 1000;
+[...(function(limit){ 
+    return function* (){
+        let [prev, curr] = [0,1]
+        while(prev + curr &lt; limit){
+            [prev, curr] = [curr, prev + curr]
+            yield curr
+        }
+    }
+})(i)()]
+</code></pre><h3 id="求反运算配合indexOf的运用"><a href="#求反运算配合indexOf的运用" class="headerlink" title="求反运算配合indexOf的运用"></a>求反运算配合indexOf的运用</h3><pre><code>Array.prototype.has = String.prototype.has = function(sth){
+    return !!~this.indexOf(sth)
+}
+
+&apos;csa&apos;.has(&apos;a&apos;);   // true
+[1,2,3].has(&apos;1&apos;); // false
+[1,2,3].has(3);  // true
+</code></pre><h3 id="不需要中间变量-交换两个值类型变量的值得装逼进阶"><a href="#不需要中间变量-交换两个值类型变量的值得装逼进阶" class="headerlink" title="不需要中间变量,交换两个值类型变量的值得装逼进阶"></a>不需要中间变量,交换两个值类型变量的值得装逼进阶</h3><pre><code>let [a,b]=[1,2]
+// 普通青年
+a=a+b
+b=a-b
+a=a-b
+// 文艺青年
+a=a^b
+b=a^b
+a=a^b
+// 进阶演化
+a^=b
+b^=a
+a^=b
+-----
+b^=a^=b
+a^=b
+-----
+a=(b^=a^=b)^a
+-----
+// 究极装逼方案
+b^=a^(a=b)
+</code></pre><p>为什么会这样呢?<br>因为行内的赋值写法一开始就把右侧变量的值确定下来了<br>也就是说 <code>b^=a^(a=b)</code><br>等价于 <code>b=b^a^(a=b)</code><br>等价于 <code>b=2^1^(a=2)</code><br>等价于 <code>a=2;b=2^1^2</code> – <code>a=2;b=1</code><br>也就解释了 为什么<code>a^=b^=a^=b</code>是错误的<br>因为其等价于<code>a=a^(b=b^(a=a^b))</code><br><code>a=1^(b=2^(a=1^2))</code>   // a=1,b=2<br><code>a=1^(b=2^(a=3))</code> // a被赋值为3,b=2<br><code>a=1^(b=2^3)</code>  // a=3,b=2<br><code>a=1^(b=1)</code>  // a=3,b被赋值为1<br><code>a=1^1</code> // a=1,b=1<br><code>a=0</code> // a被赋值为0,b=1  </p>
+<h3 id="一些数组操作的技巧-效率据说会高一些"><a href="#一些数组操作的技巧-效率据说会高一些" class="headerlink" title="一些数组操作的技巧,效率据说会高一些"></a>一些数组操作的技巧,效率据说会高一些</h3><pre><code>// 譬如说
+let arr = []
+arr[arr.length] = 1 // arr.push(1)
+[1].concat(arr) // arr.unshift(1)
+
+// 比如将一个数组的对象转换为数值类型
+let arr1 = [&apos;1&apos;,2,&apos;3&apos;]
+arr1 = arr1.map(v =&gt; +v)
+
+// 比如函数接收一个数值或者一组数值作为参数,也有可能不传
+function(arrOrValue){
+    let _arr= [].concat(arr || [])
+}
+</code></pre>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/myBlog/2016/09/27/jsFullStackSeries/03/">
                 javascript全栈应用实践之路 (服务器搭建篇 二)
             </a>
@@ -347,15 +649,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/myBlog/2016/09/28/踩过的坑/">踩过的坑</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/myBlog/2016/09/28/工具使用/">工具使用</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/myBlog/2016/09/28/奇技淫巧/">奇技淫巧</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/myBlog/2016/09/27/jsFullStackSeries/03/">javascript全栈应用实践之路 (服务器搭建</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/myBlog/2016/09/27/jsFullStackSeries/02/">javascript全栈应用实践之路 (服务器搭建</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/myBlog/2016/09/27/jsFullStackSeries/01/">javascript全栈应用实践之路(简述)</a>
             </li>
             
         </ul>

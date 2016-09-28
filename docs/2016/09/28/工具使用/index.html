@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="javascript全栈应用实践之路(简述)"/>
+        <meta property="og:title" content="工具使用"/>
     
 
     <!--Open Graph Description-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>javascript全栈应用实践之路(简述) - marsoln&#39;s blog</title>
+    <title>工具使用 - marsoln&#39;s blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -120,12 +120,12 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/myBlog/2016/09/27/jsFullStackSeries/01/">
-                javascript全栈应用实践之路(简述)
+            <a href="/myBlog/2016/09/28/工具使用/">
+                工具使用
             </a>
         </h1>
         <div class="post-info">
-            <span class="date">2016-09-27</span>
+            <span class="date">2016-09-28</span>
             <a href="#disqus_thread" class="comments">留言</a>
             
         </div>
@@ -137,40 +137,110 @@
         
 
         <!-- Post Content -->
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>前一段时间内,我周围的从业IT的老同事/同学/朋友们都或多或少的来找我探讨过一些前端(或者说前端社区)的现象和问题.</p>
-<p>所以正巧凑着最近工作不是很忙,就打算搞了个JavaScript全栈的demo.</p>
-<p>一来,可以分享给更多关注这一块的朋友,去作为入门参考.<br>二来,也可以作为自己两年多的前端工作经验的阶段性总结.<br>再者,也算是回报社区,毕竟看了这么多大神的帖子也没donate过多少钱,总觉得自己欠社区的.<br>最后,起到一个对未来的敦促作用,万一有朝一日怠惰了,回头看看,说不定还能重燃青春.</p>
-<blockquote>
-<p>食用本系列文章前请注意:<br>1.由于本文大量涉及ES6的基本语法和特性,如果读者对其不甚是了解,建议先读一下<a href="http://es6.ruanyifeng.com" target="_blank" rel="external">阮一峰老师的入门博客</a><br>2.作为一个全栈入门参考的系列文章,是假设读者们有一定前端基础的. 如果读者在食用时感觉头晕目眩,请留言给我,我会尽量对内容做些许补充说明<br>3.由于本人能力有限,文中出现过激或者错误的观点,烦请读者们悉数指出<br>4.文中并没有什么晦涩难懂或者炫目耀眼的黑魔法,所以注释不会出现得太频繁,请放心食用</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/140939-3fb45a7ef23cb680.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="天真笑容.jpg"></p>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>既然是说全栈,肯定包括了server和client/browser,使用的都是一些耳熟能详的类库/框架.<br>选型可能部分比较保守,譬如选择了express而不是koa等.<br>下面,先大致介绍一下将要涉及的部分类库.</p>
-<h6 id="nodejs-服务器端"><a href="#nodejs-服务器端" class="headerlink" title="nodejs 服务器端"></a>nodejs 服务器端</h6><ul>
-<li>express 基础框架</li>
-<li>connect-redis &amp; express-session 会话组件(会话信息会有持久化 因为开发的时候服务器经常重启 不希望所有的客户端还要重新登录)</li>
-<li>graphql &amp; express-graphql 数据服务(相对传统的restful API更灵活,开发高效)</li>
-<li>jade 服务器端渲染</li>
-<li>socket.io 架设套接字通信服务,经典的应用场景:聊天室</li>
-<li>mongoose mongodb的ODM</li>
+        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="生成ssh"><a href="#生成ssh" class="headerlink" title="生成ssh"></a>生成ssh</h3><pre><code>- 配置全局设置 `git config --global user.name &quot;username&quot;` `git confgi --global user.email &quot;example@xxx.com&quot;`
+- 生成ssh `ssh-keygen -t rsa -C &quot;example@xxx.com&quot;` 会在C:\User\xxx目录下生成.ssh目录
+- 将生成的.ssh目录中的id_rsa.pub的内容添加到gitlab/github的个人账户的ssh-key
+- 验证 ssh 是否添加成功 `ssh git@github.com`
+</code></pre><h3 id="解决git-clone时文件目录过长的方法"><a href="#解决git-clone时文件目录过长的方法" class="headerlink" title="解决git clone时文件目录过长的方法"></a>解决git clone时文件目录过长的方法</h3><pre><code>修改git设置 `git config --system core.longpaths true`
+</code></pre><h1 id="VS-CODE"><a href="#VS-CODE" class="headerlink" title="VS CODE"></a>VS CODE</h1><h3 id="配置代码段"><a href="#配置代码段" class="headerlink" title="配置代码段"></a>配置代码段</h3><ul>
+<li><code>ctrl + p</code> 打开quick open</li>
+<li>输入 <code>&gt;snippets</code> 回车</li>
+<li>进入到代码段语言选择输入栏,输入你想编辑的代码段使用的语言,譬如javascript,回车</li>
+<li>打开一个名称为javascript.json的配置文件</li>
+<li><p>假设我们要一个控制台打印的代码段,缩写为<code>_cl</code>,则需要添加如下配置</p>
+<pre><code>&quot;Console log&quot;: {    // 代码段的名称
+    &quot;prefix&quot;: &quot;_cl&quot;,    // 触发代码段的缩写
+    &quot;body&quot;: [
+        &quot;console.log(&apos;$1&apos;)&quot;,    // 代码段的第一行 $1表示第一个变量
+        &quot;$2&quot;    // 代码段的第二行
+    ],
+    &quot;description&quot;: &quot;输出到控制台&quot; // 代码段的描述
+}
+</code></pre></li>
+<li><p>保存即生效,当然只能在你指定的语言中生效</p>
+</li>
 </ul>
-<h6 id="PC端"><a href="#PC端" class="headerlink" title="PC端"></a>PC端</h6><ul>
-<li>bootstrap &amp; AdminLTE 样式框架</li>
-<li>angularjs@1.x web前端MVVM解决方案</li>
-</ul>
-<h6 id="Android移动端"><a href="#Android移动端" class="headerlink" title="Android移动端"></a>Android移动端</h6><ul>
-<li>react-native 我又不会写原生,既然是js全栈,讲道理嘛</li>
-<li>socket.io.client 套接字通信的客户端</li>
-</ul>
-<h6 id="工程化-开发工具"><a href="#工程化-开发工具" class="headerlink" title="工程化/开发工具"></a>工程化/开发工具</h6><ul>
-<li>nodemon 服务器守护进程工具</li>
-<li>eslint 编码质量工具</li>
-<li>node-sass css预处理</li>
-<li>babel 世界正义的卫道士(画风突变)</li>
-<li>gulp 任务管理</li>
-<li>webpack web资源打包工具</li>
-</ul>
-<p><a href="http://www.jianshu.com/p/8616aa298cc5" target="_blank" rel="external">下一集:服务器搭建</a></p>
+<h1 id="GULP-WEBPACK"><a href="#GULP-WEBPACK" class="headerlink" title="GULP/WEBPACK"></a>GULP/WEBPACK</h1><h3 id="多入口打包ES6模块化文件"><a href="#多入口打包ES6模块化文件" class="headerlink" title="多入口打包ES6模块化文件"></a>多入口打包ES6模块化文件</h3><pre><code>var gulp = require(&apos;gulp&apos;)
+var webpack = require(&apos;webpack-stream&apos;)
+var uglify = require(&apos;gulp-uglify&apos;)
+var through = require(&apos;through2&apos;)
 
+gulp.task(&apos;packagedScripts&apos;, () =&gt; {
+    gulp.src(&apos;./src/scripts/entrances/**/*&apos;)
+        .pipe(through.obj(function (file, enc, cb) {
+            var __filename = file.path.split(&apos;\\&apos;).reverse()[0]
+            gulp.src(file.path)
+                .pipe(webpack({
+                    output: {
+                        filename: __filename
+                    },
+                    module: {
+                        loaders: [
+                            {
+                                test: /\.js$/,
+                                exclude: /node_modules/,
+                                loader: &apos;babel&apos;,
+                                query: {
+                                    presets: [&apos;es2015&apos;]
+                                }
+                            }
+                        ]
+                    }
+                }))
+                .pipe(uglify())
+                .pipe(gulp.dest(&apos;./src/scripts/packaged&apos;))  // 输出到指定目录
+            cb()
+        }))
+})
+</code></pre><h3 id="gulp-rev-all-gulp-filter-生成文件hash值-并替换对其的引用"><a href="#gulp-rev-all-gulp-filter-生成文件hash值-并替换对其的引用" class="headerlink" title="gulp-rev-all,gulp-filter 生成文件hash值 并替换对其的引用"></a>gulp-rev-all,gulp-filter 生成文件hash值 并替换对其的引用</h3><pre><code>var gulp = require(&apos;gulp&apos;)
+var sass = require(&apos;gulp-sass&apos;)
+var imagemin = require(&apos;gulp-imagemin&apos;)
+var uglify = require(&apos;gulp-uglify&apos;)
+var cssMinify = require(&apos;gulp-minify-css&apos;)
+var RevAll = require(&apos;gulp-rev-all&apos;)
+var filter = require(&apos;gulp-filter&apos;)
+
+var buildFunc = () =&gt; {
+    var jsFilter = filter(&apos;**/*.js&apos;)
+    var htmlFilter = filter(&apos;**/*.html&apos;)
+    var cssFilter = filter(&apos;**/*.css&apos;)
+    var picFilter = filter([&apos;**/*.jpg&apos;, &apos;**/*.png&apos;])
+
+    var revAll = RevAll({
+        dontGlobal: [&apos;.scss&apos;],
+        dontRenameFile: [&apos;.html&apos;],
+        dontSearchFile: [&apos;.css&apos;],
+        transformPath: function(rev) {
+            return rev
+                .replace(&apos;scripts/&apos;, &apos;dist/scripts/&apos;)
+                .replace(&apos;style/&apos;, &apos;dist/style/&apos;)
+                .replace(&apos;images/&apos;, &apos;dist/images/&apos;)
+        }
+    })
+
+    var v = gulp.src(&apos;src/**/*&apos;)
+        .pipe(revAll.revision());
+
+    // 压缩js
+    v.pipe(jsFilter)
+        .pipe(uglify())
+        .pipe(gulp.dest(&apos;./dist&apos;));
+
+    // 压缩css
+    v.pipe(cssFilter)
+        .pipe(cssMinify())
+        .pipe(gulp.dest(&apos;./dist&apos;));
+
+    // 压缩图片
+    v.pipe(picFilter)
+        .pipe(imagemin())
+        .pipe(gulp.dest(&apos;./dist&apos;))
+
+    // 生成index.html
+    v.pipe(htmlFilter)
+        .pipe(gulp.dest(&apos;./&apos;));
+}
+</code></pre>
     </div>
 
     
@@ -178,7 +248,7 @@
     
         <div class="post-tags">
             <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/myBlog/tags/javascript-全栈/">#javascript 全栈</a>
+            <a href="/myBlog/tags/工具/">#工具</a>
         </div>
     
 
