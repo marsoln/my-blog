@@ -24,6 +24,8 @@ cd lets-chat
 
 npm install
 
+<!--more-->
+
 **npm install 出现错误**  
 
 执行python 失败  
