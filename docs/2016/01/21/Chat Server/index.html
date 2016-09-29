@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Marsoln 修行札记">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Marsoln">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Chat聊天服务器架设历程"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Marsoln 修行札记" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="marsoln&#39;s blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Chat聊天服务器架设历程 - marsoln&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/myBlog/css/style.css">
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/myBlog/">
+                    首页
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myBlog/archives">
+                    归档
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/myBlog/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/myBlog/2016/01/21/Chat Server/">
+                Chat聊天服务器架设历程
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2016-01-21</span>
+            <a href="#disqus_thread" class="comments">留言</a>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="Chat聊天服务器架设历程"><a href="#Chat聊天服务器架设历程" class="headerlink" title="Chat聊天服务器架设历程"></a>Chat聊天服务器架设历程</h1><hr>
+<h2 id="2015年11月3日-13-16-20-在Github上找到了Lets-chat项目"><a href="#2015年11月3日-13-16-20-在Github上找到了Lets-chat项目" class="headerlink" title="2015年11月3日 13:16:20 在Github上找到了Lets chat项目"></a>2015年11月3日 13:16:20 在Github上找到了Lets chat项目</h2><p><strong>首先安装了说明上的依赖</strong>  </p>
+<p>nodejs 0.10+<br>MongoDB 2.6+<br>Python 2.7.x</p>
+<p><strong>然后将项目clone到本地目录</strong>  </p>
+<p>git clone <a href="https://github.com/sdelements/lets-chat.git">https://github.com/sdelements/lets-chat.git</a></p>
+<p><strong>安装项目依赖</strong>  </p>
+<p>cd lets-chat  </p>
+<p>npm install</p>
+<p><strong>npm install 出现错误</strong>  </p>
+<p>执行python 失败  </p>
+<p>在系统环境变量中指定了python的安装目录</p>
+<p><strong>然后npm install 成功</strong></p>
+<p>复制设置文件<br><strong>cp settings.yml.sample settings.yml</strong></p>
+<p>然后执行<br><strong>git pull 成功</strong><br>npm run-script migrate 报错</p>
+<blockquote>
+<p>错误是Window Script Host<br>脚本 D:\xxx\migroose.js<br>行 3<br>字符 1<br>错误 缺少对象<br>代码 800A138F<br>源 Microsoft JScript 运行时错误</p>
+</blockquote>
+<p>找到对应的<a href="https://github.com/sdelements/lets-chat/issues/569" title="项目ISSUS">项目ISSUS</a></p>
+<blockquote>
+<p>hhaidar建议尝试使用 vagrant 或者 docker</p>
+</blockquote>
+<p>然而<strong>本地情况是mongoDB 无法正常连接</strong>  即在cmd中键入 mongo 执行后出错</p>
+<blockquote>
+<p>2015-11-03T13:31:04.068+0800 I CONTROL  Hotfix KB2731284 or later update is not<br>installed, will zero-out data files<br>MongoDB shell version: 3.0.7<br>connecting to: test<br>2015-11-03T13:31:05.128+0800 W NETWORK  Failed to connect to 127.0.0.1:27017, re<br>ason: errno:10061 由于目标计算机积极拒绝，无法连接。<br>2015-11-03T13:31:05.133+0800 E QUERY    Error: couldn’t connect to server 127.0.<br>0.1:27017 (127.0.0.1), connection attempt failed<br>    at connect (src/mongo/shell/mongo.js:179:14)<br>    at (connect):1:6 at src/mongo/shell/mongo.js:179<br>exception: connect failed</p>
+</blockquote>
+<p>在cnBlog找到了一篇windows下注册mongoDB服务的文章</p>
+<blockquote>
+<p><strong>用管理员身份打开cmd</strong> cd mongoDB的bin目录(必须留在该目录)<br>mkdir xxx  创建目录用于存放数据库文件<br>执行指令(注意logpath指向文件 dbpath指向目录 都是绝对路径)<br><code>mongod --install --serviceName 服务名称 --serviceDisplayName 显示名称 --logpath xxxx --dbpath xxx --directoryperdb</code><br>directoryperdb 每个数据库独立目录</p>
+</blockquote>
+<p>然后<strong>cmd中可以正常链接到本地mongodb</strong></p>
+<p>然而错误依旧是在migroose文件的第三行</p>
+<pre><code>&apos;use strict&apos;;
+
+var mongoose = require(&apos;mongoose&apos;),    //require出错
+settings = require(&apos;./app/config&apos;),
+migroose = require(&apos;migroose&apos;),
+Runner = require(&apos;migroose-cli/cli/runner/index&apos;);
+</code></pre><p>到最后也没找到什么解决办法,也懒得找了</p>
+<h2 id="2016年1月3日23-25-51-重新使用-nodejs-express-jade-socket-io-创建了聊天室项目"><a href="#2016年1月3日23-25-51-重新使用-nodejs-express-jade-socket-io-创建了聊天室项目" class="headerlink" title="2016年1月3日23:25:51 重新使用 nodejs express jade socket.io 创建了聊天室项目"></a>2016年1月3日23:25:51 重新使用 <code>nodejs express jade socket.io</code> 创建了聊天室项目</h2><p>在使用<code>express-session</code>中间件时 选择了redis作为sessionStore<br>于是安装了tj大神的<code>connect-redis</code>组件<br>结果在运行时 向session中写入user信息时报错</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Error: MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.</div><div class="line">  at JavascriptReplyParser._parseResult (e:\Github\NodeDataServer\node_modules\redis\lib\parsers\javascript.js:43:16)</div><div class="line">  at JavascriptReplyParser.try_parsing (e:\Github\NodeDataServer\node_modules\redis\lib\parsers\javascript.js:114:21)</div><div class="line">  at JavascriptReplyParser.run (e:\Github\NodeDataServer\node_modules\redis\lib\parsers\javascript.js:126:22)</div><div class="line">  at JavascriptReplyParser.execute (e:\Github\NodeDataServer\node_modules\redis\lib\parsers\javascript.js:107:10)</div><div class="line">  at Socket.&lt;anonymous&gt; (e:\Github\NodeDataServer\node_modules\redis\index.js:131:27)</div><div class="line">  at emitOne (events.js:77:13)</div><div class="line">  at Socket.emit (events.js:169:7)</div><div class="line">  at readableAddChunk (_stream_readable.js:146:16)</div><div class="line">  at Socket.Readable.push (_stream_readable.js:110:10)</div><div class="line">  at TCP.onread (net.js:523:20)</div></pre></td></tr></table></figure>
+<p>去查了一下,多半的人都是说</p>
+<blockquote>
+<p>因为redis在持久化到硬盘的backsave的时候需要从当前运行时环境fork出一个镜像,然后使用子进程将内存镜像写入硬盘.</p>
+<p>这时复制镜像会消耗双倍的内存,所以内存不足时会失败.redis默认设置在失败时,拒绝写入,所以建议将拒绝写入的配置修改为no : <code>stop-writes-on-bgsave-error no</code></p>
+</blockquote>
+<p>我去看了一下本地redis服务的配置文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">  ################################ SNAPSHOTTING  ################################</div><div class="line">#</div><div class="line"># Save the DB on disk:</div><div class="line">#</div><div class="line">#   save &lt;seconds&gt; &lt;changes&gt;</div><div class="line">#</div><div class="line">#   Will save the DB if both the given number of seconds and the given</div><div class="line">#   number of write operations against the DB occurred.</div><div class="line">#</div><div class="line">#   In the example below the behaviour will be to save:</div><div class="line">#   after 900 sec (15 min) if at least 1 key changed</div><div class="line">#   after 300 sec (5 min) if at least 10 keys changed</div><div class="line">#   after 60 sec if at least 10000 keys changed</div><div class="line">#</div><div class="line">#   Note: you can disable saving completely by commenting out all &quot;save&quot; lines.</div><div class="line">#</div><div class="line">#   It is also possible to remove all the previously configured save</div><div class="line">#   points by adding a save directive with a single empty string argument</div><div class="line">#   like in the following example:</div><div class="line">#</div><div class="line">#   save &quot;&quot;</div><div class="line"></div><div class="line">save 900 1</div><div class="line">save 300 10</div><div class="line">save 60 10000</div><div class="line"></div><div class="line"># By default Redis will stop accepting writes if RDB snapshots are enabled</div><div class="line"># (at least one save point) and the latest background save failed.</div><div class="line"># This will make the user aware (in a hard way) that data is not persisting</div><div class="line"># on disk properly, otherwise chances are that no one will notice and some</div><div class="line"># disaster will happen.</div><div class="line">#</div><div class="line"># If the background saving process will start working again Redis will</div><div class="line"># automatically allow writes again.</div><div class="line">#</div><div class="line"># However if you have setup your proper monitoring of the Redis server</div><div class="line"># and persistence, you may want to disable this feature so that Redis will</div><div class="line"># continue to work as usual even if there are problems with disk,</div><div class="line"># permissions, and so forth.</div><div class="line">stop-writes-on-bgsave-error yes</div></pre></td></tr></table></figure>
+<p>首先,前面是数据快照的策略配置,默认</p>
+<ul>
+<li>至少1次更改,将于900秒后存储快照</li>
+<li>至少10次更改,将于300秒后存储快照</li>
+<li>至少10000次更改,将于60秒后存储快照</li>
+</ul>
+<p>下面说了一下redis snapshots启用然后最后一次backsave失败的时候会拒绝写入.</p>
+<p>然后解释了一下这样用户就会觉察到数据没有正确的持久化到硬盘上,为了防止世界被破坏云云…</p>
+<p>接下来又假设了一下如果用户有相当健全的monitoring system的时候,就可以为所欲为 把配置设置为<code>no</code></p>
+<blockquote>
+<p>我查看了一下本机内存是没有问题的 硬盘就更不用说了</p>
+<p>所以肯定不是因为内存不够的原因导致的</p>
+<p>于是我在cmd里运行redis-server</p>
+</blockquote>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[7312] 03 Jan 23:38:08.472 #</div><div class="line">The Windows version of Redis allocates a memory mapped heap for sharing with</div><div class="line">the forked process used for persistence operations. In order to share this</div><div class="line">memory, Windows allocates from the system paging file a portion equal to the</div><div class="line">size of the Redis heap. At this time there is insufficient contiguous free</div><div class="line">space available in the system paging file for this operation (Windows error</div><div class="line">0x5AF). To work around this you may either increase the size of the system</div><div class="line">paging file, or decrease the size of the Redis heap with the --maxheap flag.</div><div class="line">Sometimes a reboot will defragment the system paging file sufficiently for</div><div class="line">this operation to complete successfully.</div><div class="line"></div><div class="line">Please see the documentation included with the binary distributions for more</div><div class="line">details on the --maxheap flag.</div><div class="line"></div><div class="line">Redis can not continue. Exiting.</div></pre></td></tr></table></figure>
+<p>从上面的错误来看,应该<em>decrease maxheap</em>,<strong>我猜有可能是windows下默认的maxheap超过了阈值</strong></p>
+<p>决定再去看一下配置,发现没有指定maxheap和maxmemory,然后随便给了<em>maxheap 1.5gb/ maxmemory 1gb</em>,再启动服务就好了…</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/myBlog/tags/javascript/">#javascript</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>关于</h2>
+                <p>
+                    如果有问题欢迎提ISSUE
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>最近发布</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/myBlog/2016/09/28/踩过的坑/">踩过的坑</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/myBlog/2016/09/28/工具使用/">工具使用</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/myBlog/2016/09/28/奇技淫巧/">奇技淫巧</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/myBlog/2016/09/27/jsFullStackSeries/03/">javascript全栈应用实践之路 (服务器搭建</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/marsoln/myBlog">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/marsoln1988">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:marsoln1988@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    Hexo & Alpha-Dust What A Magic! ❤ by Marsoln
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/myBlog/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
