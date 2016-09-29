@@ -17,9 +17,6 @@ comments:
   # Disqus comments
   disqus_shortname:
 
-# Google Analytics Tracking ID
-google_analytics:
-
 # Social Accounts
 twitter_url: https://twitter.com/marsoln1988
 github_url: https://github.com/marsoln/myBlog
