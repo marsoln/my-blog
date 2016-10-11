@@ -241,7 +241,18 @@ var buildFunc = () =&gt; {
     v.pipe(htmlFilter)
         .pipe(gulp.dest(&apos;./&apos;));
 }
-</code></pre>
+</code></pre><h3 id="使用postcss-autoprefixer-postcss-scss"><a href="#使用postcss-autoprefixer-postcss-scss" class="headerlink" title="使用postcss/autoprefixer/postcss-scss"></a>使用postcss/autoprefixer/postcss-scss</h3><blockquote>
+<p>需要安装 <code>npm i postcss postcss-loader autoprefixer postcss-scss</code> ,切记一定要装 <code>postcss</code></p>
+</blockquote>
+<ul>
+<li>webpack.config.js的loaders中添加</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">module:&#123;</div><div class="line">    loaders: [</div><div class="line">        &#123;</div><div class="line">            test: /\.scss$/,</div><div class="line">            loader: &apos;style!css?importLoaders=1!postcss!sass&apos;</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;,</div><div class="line">postcss: [autoprefixer(&#123;</div><div class="line">    browsers: [</div><div class="line">        &quot;android 4&quot;,</div><div class="line">        &quot;iOS 6&quot;,</div><div class="line">        &quot;last 2 versions&quot;</div><div class="line">    ]</div><div class="line">&#125;)],</div></pre></td></tr></table></figure>
+<ul>
+<li>package.json中添加配置（也可以选择postcss.config.js等形式配置)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;postcss&quot;: &#123;</div><div class="line">    &quot;plugins&quot;: &#123;</div><div class="line">        &quot;parser&quot;: &quot;postcss-scss&quot;, </div><div class="line">        &quot;autoprefixer&quot;: true</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
     </div>
 
     
