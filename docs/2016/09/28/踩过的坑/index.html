@@ -145,6 +145,8 @@
 <h3 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h3><ul>
 <li>XMLHttpRequest的<code>setRequestHeader</code>要在<code>open</code>后进行</li>
 <li>在跨域的POST请求,需要携带cookie身份信息时,XMLHttpRequest的<code>withCredentials</code>要在<code>open</code>后,设置为<code>true</code>(对应的,服务器要有<code>Access-Control-Allow-Credentials: true</code>的responseHeader)</li>
+<li>XHR的同步请求中不能设置timeout,否则会报错</li>
+<li>XHR的ontimeout,onabort,onerror等等事件在onreadystatechange事件执行后才会触发 所以如果要reject结果的话,需要 setTimeout 0 将其延迟到下一tick</li>
 </ul>
 <a id="more"></a>
 <h3 id="IOS-微信X5"><a href="#IOS-微信X5" class="headerlink" title="IOS 微信X5"></a>IOS 微信X5</h3><ul>
@@ -180,6 +182,8 @@
 </li>
 <li>重新 <code>npm rebuild node-sass</code></li>
 </ul>
+<strike><br>### MSBuild Error MSB3428 错误<br><br>该错误是由于系统默认路径下没有找到VCBuild.exe可执行文件导致的，依然是某些类库在当前系统打包的时候出现的问题<br><br>- 首先检查系统是否安装了.net framework 2.0 sdk<br>    - 如果没有装,这里是下载地址 <a href="https://download.microsoft.com/download/a/2/8/a28bafa4-c007-4224-a53f-54aee547ed97/setup.exe" target="_blank" rel="external">https://download.microsoft.com/download/a/2/8/a28bafa4-c007-4224-a53f-54aee547ed97/setup.exe</a> 注意,win7以上的操作系统,不！支！持！哈哈哈哈哈哈！<br>- 确认安装之后,在系统环境变量中为当前用户(或者所有用户，自行斟酌)的PATH配置中添加VCBuild.exe的绝对路径<br></strike>
+
 <h3 id="Babel-Gulp使用-Symbol-iterator-时编译出现错误"><a href="#Babel-Gulp使用-Symbol-iterator-时编译出现错误" class="headerlink" title="Babel-Gulp使用[Symbol.iterator]时编译出现错误"></a>Babel-Gulp使用[Symbol.iterator]时编译出现错误</h3><blockquote>
 <p>npm install babel-plugin-transform-runtime</p>
 </blockquote>

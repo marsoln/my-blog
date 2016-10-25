@@ -171,6 +171,8 @@
 <h3 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h3><ul>
 <li>XMLHttpRequest的<code>setRequestHeader</code>要在<code>open</code>后进行</li>
 <li>在跨域的POST请求,需要携带cookie身份信息时,XMLHttpRequest的<code>withCredentials</code>要在<code>open</code>后,设置为<code>true</code>(对应的,服务器要有<code>Access-Control-Allow-Credentials: true</code>的responseHeader)</li>
+<li>XHR的同步请求中不能设置timeout,否则会报错</li>
+<li>XHR的ontimeout,onabort,onerror等等事件在onreadystatechange事件执行后才会触发 所以如果要reject结果的话,需要 setTimeout 0 将其延迟到下一tick</li>
 </ul>
         </div>
         <a href="/myBlog/2016/09/28/踩过的坑/" class="read-more">Read More</a>
