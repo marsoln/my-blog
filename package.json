@@ -7,7 +7,6 @@
     },
     "dependencies": {
         "hexo": "^3.2.0",
-        "hexo-deployer-git": "^0.2.0",
         "hexo-generator-archive": "^0.1.4",
         "hexo-generator-category": "^0.1.3",
         "hexo-generator-index": "^0.2.0",
@@ -26,12 +25,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+git@github.com:marsoln/myBlog.git"
+        "url": "git+git@github.com:marsoln/my-blog.git"
     },
     "author": "marsoln",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/marsoln/myBlog/issues"
+        "url": "https://github.com/marsoln/my-blog/issues"
     },
-    "homepage": "https://github.com/marsoln/myBlog#readme"
+    "homepage": "https://github.com/marsoln/my-blog#readme"
 }
