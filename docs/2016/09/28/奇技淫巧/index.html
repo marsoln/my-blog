@@ -190,10 +190,10 @@ arr1 = arr1.map(v =&gt; +v)
 function(arrOrValue){
     let _arr= [].concat(arr || [])
 }
-</code></pre><h3 id="不动点组合子-只适合拿来装逼"><a href="#不动点组合子-只适合拿来装逼" class="headerlink" title="不动点组合子(只适合拿来装逼)"></a>不动点组合子(只适合拿来装逼)</h3><pre><code>// 用于将递归匿名函数
+</code></pre><h3 id="不动点组合子"><a href="#不动点组合子" class="headerlink" title="不动点组合子"></a>不动点组合子</h3><pre><code>// 用于将递归匿名函数
 let Y = f =&gt; (x =&gt; f(y =&gt; x(x)(y)))(x =&gt; f(y =&gt; x(x)(y)))
 let steamrollArray = a =&gt; Y(fl =&gt; i =&gt; i instanceof Array ? i.reduce((p, n) =&gt; p.concat(fl(n)), []) : i)(a)
-</code></pre><p>通常我们可以将需要递归求值的函数存做一个变量,然后在其内部调用其本身.<br>但是装逼的时候,可以采用Y-combinator(fixed-point combinator)的方式去实现匿名函数递归.<br>参考<a href="https://en.wikipedia.org/wiki/Fixed-point_combinator" target="_blank" rel="external">Fixed-point combinator</a></p>
+</code></pre><p>采用Y-combinator(fixed-point combinator)的方式去实现匿名函数递归.<br>参考<a href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%8A%A8%E7%82%B9%E7%BB%84%E5%90%88%E5%AD%90" target="_blank" rel="external">不动点组合子</a></p>
 
     </div>
 
@@ -241,6 +241,10 @@ let steamrollArray = a =&gt; Y(fl =&gt; i =&gt; i instanceof Array ? i.reduce((p
         <ul>
             
             <li>
+                <a class="footer-post" href="/myBlog/2017/03/02/Gitbook定制/">Gitbook定制</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/myBlog/2016/10/01/好玩的社区/">好玩的社区</a>
             </li>
             
@@ -250,10 +254,6 @@ let steamrollArray = a =&gt; Y(fl =&gt; i =&gt; i instanceof Array ? i.reduce((p
             
             <li>
                 <a class="footer-post" href="/myBlog/2016/09/28/工具使用/">工具使用</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/myBlog/2016/09/28/奇技淫巧/">奇技淫巧</a>
             </li>
             
         </ul>
