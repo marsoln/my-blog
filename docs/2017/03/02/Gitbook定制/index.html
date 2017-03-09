@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="marsoln&#39;s blog"/>
+        <meta property="og:title" content="Gitbook定制"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>marsoln&#39;s blog</title>
+    <title>Gitbook定制 - marsoln&#39;s blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -111,17 +111,14 @@
     <div class="logo">
         <a href="/myBlog/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">marsoln's blog</h1>
-        
     </div>
 </header>
 
         <section class="main">
             
-                
 <div class="post">
 
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
             <a href="/myBlog/2017/03/02/Gitbook定制/">
                 Gitbook定制
@@ -129,14 +126,18 @@
         </h1>
         <div class="post-info">
             <span class="date">2017-03-02</span>
-            
+            <a href="#disqus_thread" class="comments">留言</a>
             
         </div>
     </div>
 
-    
-        <div class="content">
-            <h1 id="Gitbook-website-主题定制化"><a href="#Gitbook-website-主题定制化" class="headerlink" title="Gitbook website 主题定制化"></a>Gitbook website 主题定制化</h1><h2 id="Gitbook的文档组织结构的定制"><a href="#Gitbook的文档组织结构的定制" class="headerlink" title="Gitbook的文档组织结构的定制"></a>Gitbook的文档组织结构的定制</h2><p>在文档源文件根目录里的 <code>SUMMARY.md</code> 作为目录结构的载体,生成左侧的book_summary块,模板会遍历Summary中定义的parts,对于每个part里的articles通过一个递归方法去生成菜单.想要针对菜单不同层级做定制式的处理,可以从此处入手修改.</p>
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="Gitbook-website-主题定制化"><a href="#Gitbook-website-主题定制化" class="headerlink" title="Gitbook website 主题定制化"></a>Gitbook website 主题定制化</h1><h2 id="Gitbook的文档组织结构的定制"><a href="#Gitbook的文档组织结构的定制" class="headerlink" title="Gitbook的文档组织结构的定制"></a>Gitbook的文档组织结构的定制</h2><p>在文档源文件根目录里的 <code>SUMMARY.md</code> 作为目录结构的载体,生成左侧的book_summary块,模板会遍历Summary中定义的parts,对于每个part里的articles通过一个递归方法去生成菜单.想要针对菜单不同层级做定制式的处理,可以从此处入手修改.</p>
 <blockquote>
 <p>如果只是需要做css定制而不希望改变DOM结构的话,可以借助菜单节点的 <code>data-level</code> 属性去实现.</p>
 </blockquote>
@@ -168,279 +169,31 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>)</div><div class="line"><span class="keyword">var</span> sass = <span class="built_in">require</span>(<span class="string">'gulp-sass'</span>)</div><div class="line"><span class="keyword">var</span> postcss = <span class="built_in">require</span>(<span class="string">'gulp-postcss'</span>)</div><div class="line"><span class="keyword">var</span> autoprefixer = <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack-stream'</span>)</div><div class="line"><span class="keyword">var</span> uglify = <span class="built_in">require</span>(<span class="string">'gulp-uglify'</span>)</div><div class="line"><span class="keyword">var</span> cssMinify = <span class="built_in">require</span>(<span class="string">'gulp-minify-css'</span>)</div><div class="line"><span class="keyword">var</span> through = <span class="built_in">require</span>(<span class="string">'through2'</span>)</div><div class="line"></div><div class="line"><span class="keyword">const</span> PATHS = &#123;</div><div class="line">    <span class="attr">SASS</span>: [<span class="string">'./src/scss/style.scss'</span>], <span class="comment">// scss 入口文件</span></div><div class="line">    SASS_ALL: [<span class="string">'./src/scss/**/*'</span>],</div><div class="line">    <span class="attr">SCRIPTS</span>: [<span class="string">'./src/js/**/index.js'</span>],</div><div class="line">    <span class="attr">SCRIPTS_ALL</span>: [<span class="string">'./src/js/**/*'</span>],</div><div class="line">    <span class="attr">production</span>: <span class="string">'./_assets/website/'</span>,</div><div class="line">    <span class="attr">development</span>: <span class="string">'../pdoc/node_modules/gitbook-plugin-polex/_assets/website/'</span>,</div><div class="line">    <span class="attr">debug</span>: <span class="string">'../pdoc/_book/gitbook/'</span>, <span class="comment">// 只适用在开发调试过程中 不需要重新host gitbook</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> getPath = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> ret = PATHS[process.env.NODE_ENV]</div><div class="line">    <span class="keyword">return</span> ret</div><div class="line">&#125;</div><div class="line"></div><div class="line">gulp.task(<span class="string">'compileSass'</span>, () =&gt; &#123;</div><div class="line">    <span class="keyword">var</span> plugins = [autoprefixer(&#123;</div><div class="line">        <span class="attr">browsers</span>: [</div><div class="line">            <span class="string">"android 4"</span>,</div><div class="line">            <span class="string">"iOS 6"</span>,</div><div class="line">            <span class="string">"last 2 versions"</span></div><div class="line">        ]</div><div class="line">    &#125;)]</div><div class="line">    gulp.src(PATHS.SASS)</div><div class="line">        .pipe(sass().on(<span class="string">'error'</span>, sass.logError))</div><div class="line">        .pipe(postcss(plugins))</div><div class="line">        .pipe(cssMinify())</div><div class="line">        .pipe(gulp.dest(getPath()))</div><div class="line">&#125;)</div><div class="line"></div><div class="line">gulp.task(<span class="string">'compileScript'</span>, () =&gt; &#123;</div><div class="line">    gulp.src(PATHS.SCRIPTS)</div><div class="line">        .pipe(through.obj(<span class="function"><span class="keyword">function</span>(<span class="params">file, enc, cb</span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> __filename = file.path.split(<span class="string">'\\'</span>).reverse()[<span class="number">1</span>]</div><div class="line">            gulp.src(file.path)</div><div class="line">                .pipe(webpack(&#123;</div><div class="line">                    <span class="attr">output</span>: &#123;</div><div class="line">                        <span class="attr">filename</span>: __filename === <span class="string">'core'</span> ? <span class="string">'gitbook.js'</span> : <span class="string">'theme.js'</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="attr">module</span>: &#123;</div><div class="line">                        <span class="attr">loaders</span>: [&#123;</div><div class="line">                            <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</div><div class="line">                            <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,</div><div class="line">                            <span class="attr">loader</span>: <span class="string">'babel'</span>,</div><div class="line">                            <span class="attr">query</span>: &#123;</div><div class="line">                                <span class="attr">presets</span>: [<span class="string">'es2015'</span>]</div><div class="line">                            &#125;</div><div class="line">                        &#125;]</div><div class="line">                    &#125;</div><div class="line">                &#125;))</div><div class="line">                .pipe(gulp.dest(getPath()))</div><div class="line">            cb()</div><div class="line">        &#125;))</div><div class="line">&#125;)</div><div class="line"></div><div class="line">gulp.task(<span class="string">'build'</span>, [<span class="string">'compileSass'</span>, <span class="string">'compileScript'</span>])</div><div class="line"></div><div class="line">gulp.task(<span class="string">'watch'</span>, [<span class="string">'compileSass'</span>, <span class="string">'compileScript'</span>], () =&gt; &#123;</div><div class="line">    gulp.watch(PATHS.SASS_ALL, [<span class="string">'compileSass'</span>])</div><div class="line">    gulp.watch(PATHS.SCRIPTS_ALL, [<span class="string">'compileScript'</span>])</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>在 <code>src/</code> 目录创建一个 <code>build.dev.sh</code> 脚本来完成打包替换的过程</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#! /bin/bash</span></div><div class="line">ROOT=../pdoc/node_modules/gitbook-plugin-polex/</div><div class="line"></div><div class="line"><span class="comment"># Cleanup folder</span></div><div class="line">rm -rf <span class="variable">$&#123;ROOT&#125;</span>_assets</div><div class="line">rm -rf <span class="variable">$&#123;ROOT&#125;</span>_layouts</div><div class="line"></div><div class="line"><span class="comment"># Recreate folder</span></div><div class="line">mkdir -p <span class="variable">$&#123;ROOT&#125;</span>_assets/website/</div><div class="line"></div><div class="line"><span class="comment"># Copy layouts</span></div><div class="line">cp -R _layouts/ <span class="variable">$&#123;ROOT&#125;</span>_layouts</div><div class="line"></div><div class="line"><span class="comment"># Copy fonts</span></div><div class="line">mkdir -p <span class="variable">$&#123;ROOT&#125;</span>_assets/website/fonts</div><div class="line">cp -R node_modules/font-awesome/fonts/ <span class="variable">$&#123;ROOT&#125;</span>_assets/website/fonts/fontawesome/</div><div class="line"></div><div class="line"><span class="comment"># Packaged via Gulp</span></div><div class="line">cross-env NODE_ENV=development gulp build</div><div class="line"></div><div class="line"><span class="comment"># Copy images if they exist</span></div><div class="line">mkdir -p <span class="variable">$&#123;ROOT&#125;</span>_assets/website/images</div><div class="line">imgs=`du -k <span class="string">"src/images"</span> | cut <span class="_">-f</span> 1` </div><div class="line">zero=0</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$imgs</span> <span class="_">-gt</span> <span class="variable">$zero</span> ]; <span class="keyword">then</span></div><div class="line">cp src/images/*.* <span class="variable">$&#123;ROOT&#125;</span>_assets/website/images/</div><div class="line"><span class="keyword">else</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"没有图片要复制."</span></div><div class="line"><span class="built_in">exit</span> 0</div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/10/01/好玩的社区/">
-                好玩的社区
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-10-01</span>
-            
-            
-        </div>
     </div>
 
     
-        <div class="content">
-            <blockquote>
-<p>以下是个人搜罗的一些比较喜欢的社区,比起传统的csdn和open-open那种技术性论坛和博客,这里给我的感觉更像是家.哈哈哈.</p>
-</blockquote>
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/myBlog/tags/Gitbook-定制/">#Gitbook 定制</a>
         </div>
-        <a href="/myBlog/2016/10/01/好玩的社区/" class="read-more">Read More</a>
     
 
-</div>
-            
-                
-<div class="post">
+    <!-- Comments -->
+    
+    <div class="comments">
+        
 
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/09/28/踩过的坑/">
-                踩过的坑
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-09-28</span>
-            
-            
-        </div>
+
     </div>
-
-    
-        <div class="content">
-            <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h3 id="IE-系列"><a href="#IE-系列" class="headerlink" title="IE 系列"></a>IE 系列</h3><ul>
-<li>IE11在跨站引用的样式文件中的url(比如字体文件路径)解析时,会将document文档的域作为当前域,而不是该样式文件的域.</li>
-<li>在IE8中使用respond.js去使之支持css3媒体查询的时候,值得注意的是<strong>respond默认不会加载跨域样式资源</strong>,</li>
-<li>在IE8中实现数据可视化,千万不要用基于canvas绘图的插件+excanvas,这是自寻死路.还是找找svg+vml绘图的插件吧,比如highcharts之类的.效率问题.</li>
-</ul>
-<h3 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h3><ul>
-<li>XMLHttpRequest的<code>setRequestHeader</code>要在<code>open</code>后进行</li>
-<li>在跨域的POST请求,需要携带cookie身份信息时,XMLHttpRequest的<code>withCredentials</code>要在<code>open</code>后,设置为<code>true</code>(对应的,服务器要有<code>Access-Control-Allow-Credentials: true</code>的responseHeader)</li>
-</ul>
-        </div>
-        <a href="/myBlog/2016/09/28/踩过的坑/" class="read-more">Read More</a>
     
 
 </div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/09/28/工具使用/">
-                工具使用
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-09-28</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="生成ssh"><a href="#生成ssh" class="headerlink" title="生成ssh"></a>生成ssh</h3><pre><code>- 配置全局设置 `git config --global user.name &quot;username&quot;` `git confgi --global user.email &quot;example@xxx.com&quot;`
-- 生成ssh `ssh-keygen -t rsa -C &quot;example@xxx.com&quot;` 会在C:\User\xxx目录下生成.ssh目录
-- 将生成的.ssh目录中的id_rsa.pub的内容添加到gitlab/github的个人账户的ssh-key
-- 验证 ssh 是否添加成功 `ssh git@github.com`
-</code></pre><h3 id="解决git-clone时文件目录过长的方法"><a href="#解决git-clone时文件目录过长的方法" class="headerlink" title="解决git clone时文件目录过长的方法"></a>解决git clone时文件目录过长的方法</h3><pre><code>修改git设置 `git config --system core.longpaths true`
-</code></pre><h3 id="解决-git-review-时-no-matching-key-exchange-method-found-Their-offer-diffie-hellman-group1-sha1-的错误"><a href="#解决-git-review-时-no-matching-key-exchange-method-found-Their-offer-diffie-hellman-group1-sha1-的错误" class="headerlink" title="解决 git review 时 no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 的错误"></a>解决 git review 时 no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 的错误</h3><p>该错误是由于服务器ssh验证使用了一个过时的算法导致的,但是为了能够成功通过,需要在bash每次打开时设置一下 <a href="http://stackoverflow.com/questions/38770202/using-kexalgorithms-diffie-hellman-group1-sha1-did-not-resolve-no-matching-ke">stackoverflow solution</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> GIT_SSH_COMMAND=<span class="string">'ssh -o KexAlgorithms=+diffie-hellman-group1-sha1'</span></div></pre></td></tr></table></figure>
-<p>stackoverflow上有热心人说可以在 git config 中做配置,但是我试了,并没有什么用,不过还是记录一下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">git config --global core.sshCommand <span class="string">"ssh -o KexAlgorithms=+diffie-hellman-group1-sha1"</span></div><div class="line">git config --global core.scpCommand <span class="string">"scp -o KexAlgorithms=+diffie-hellman-group1-sha1"</span></div></pre></td></tr></table></figure>
-        </div>
-        <a href="/myBlog/2016/09/28/工具使用/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/09/28/奇技淫巧/">
-                奇技淫巧
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-09-28</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="generator-生成i内的-fibonacci数组"><a href="#generator-生成i内的-fibonacci数组" class="headerlink" title="generator 生成i内的 fibonacci数组"></a>generator 生成i内的 fibonacci数组</h3><pre><code>let i = 1000;
-[...(function(limit){ 
-    return function* (){
-        let [prev, curr] = [0,1]
-        while(prev + curr &lt; limit){
-            [prev, curr] = [curr, prev + curr]
-            yield curr
-        }
-    }
-})(i)()]
-</code></pre>
-        </div>
-        <a href="/myBlog/2016/09/28/奇技淫巧/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/09/27/jsFullStackSeries/03/">
-                javascript全栈应用实践之路 (服务器搭建篇 二)
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-09-27</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h4 id="剧情概要"><a href="#剧情概要" class="headerlink" title="剧情概要"></a>剧情概要</h4><p>上一集,我们一起完成了一个简单的服务器 – 提供了/index 根目录的路由,/graphql 数据服务路由并且创建了一个用户模型.<br>在这一集,我们将要完成注册登录和身份验证的基本功能,并且完成对应web端的部分.</p>
-<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><p>开始撸码之前,让我们先思考两个问题:</p>
-<ul>
-<li>身份验证的原理是什么</li>
-<li>身份验证应该在作用于什么场景</li>
-</ul>
-<p>可惜我并没有教科书式的答案,只有一些自己的理解:</p>
-<p>首先,我认为<strong>身份验证的机制应该是在用户通过一些行为确定身份之后,携带一个自己身份的标识信息,并且可以被服务器端所认可,其必须具有唯一性</strong>,说白了就是,你登录之后,服务器为你生成一个唯一标识,你只要每次请求的时候都带着就可以了.</p>
-<p>然后,其作用的场景必然是非匿名场景,譬如<strong>对于大多数数据进行Create/Update/Delete之类的操作(甚至某些敏感数据的Read操作)需要明确你的身份的时候</strong>,这样的场景就需要身份验证.</p>
-<p>好,带着这个独创的结论,我们就开始实现一个authentication吧!</p>
-        </div>
-        <a href="/myBlog/2016/09/27/jsFullStackSeries/03/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/09/27/jsFullStackSeries/02/">
-                javascript全栈应用实践之路 (服务器搭建篇 一)
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-09-27</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h4 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h4><p>首先,需要安装一些必要的软件 </p>
-<ul>
-<li><a href="https://nodejs.org/zh-cn/">nodejs(建议最新的6+) </a></li>
-<li><a href="https://www.mongodb.com/download-center#community">mongodb</a></li>
-<li><a href="https://github.com/ServiceStack/redis-windows">redis(windows)</a></li>
-</ul>
-<p>请按照官方教程下载,然后无脑下一步下一步至全部安装完成.<br>当然<strong>mongodb在注册成系统服务</strong>以及<strong>windows系统下redis服务启动</strong>的时候可能会遇到各种小问题,但是网上有很多的教程和解决方案,我就不再赘述…</p>
-<p>…了吧?</p>
-<blockquote>
-<p><strong>用管理员身份打开cmd</strong> cd mongoDB的bin目录(必须留在该目录)<br>mkdir xxx  创建目录用于存放数据库文件<br>执行指令(注意logpath指向<strong>文件</strong> dbpath指向<strong>目录</strong> 都是绝对路径)<br><code>mongod --install --serviceName &#39;这个服务的名称&#39; --serviceDisplayName &#39;这个服务显示的名称&#39; --logpath D:/dbfiles/logs/day-one.log --dbpath D:/dbfiles/databases/ --directoryperdb</code><br>directoryperdb 每个数据库独立目录</p>
-</blockquote>
-<p>接下来,我们要先创建自己的服务器端.</p>
-        </div>
-        <a href="/myBlog/2016/09/27/jsFullStackSeries/02/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/09/27/jsFullStackSeries/01/">
-                javascript全栈应用实践之路(简述)
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-09-27</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>前一段时间内,我周围的从业IT的老同事/同学/朋友们都或多或少的来找我探讨过一些前端(或者说前端社区)的现象和问题.</p>
-<p>所以正巧凑着最近工作不是很忙,就打算搞了个JavaScript全栈的demo.</p>
-<p>一来,可以分享给更多关注这一块的朋友,去作为入门参考.<br>二来,也可以作为自己两年多的前端工作经验的阶段性总结.<br>再者,也算是回报社区,毕竟看了这么多大神的帖子也没donate过多少钱,总觉得自己欠社区的.<br>最后,起到一个对未来的敦促作用,万一有朝一日怠惰了,回头看看,说不定还能重燃青春.</p>
-<blockquote>
-<p>食用本系列文章前请注意:<br>1.由于本文大量涉及ES6的基本语法和特性,如果读者对其不甚是了解,建议先读一下<a href="http://es6.ruanyifeng.com">阮一峰老师的入门博客</a><br>2.作为一个全栈入门参考的系列文章,是假设读者们有一定前端基础的. 如果读者在食用时感觉头晕目眩,请留言给我,我会尽量对内容做些许补充说明<br>3.由于本人能力有限,文中出现过激或者错误的观点,烦请读者们悉数指出<br>4.文中并没有什么晦涩难懂或者炫目耀眼的黑魔法,所以注释不会出现得太频繁,请放心食用</p>
-</blockquote>
-        </div>
-        <a href="/myBlog/2016/09/27/jsFullStackSeries/01/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/myBlog/2016/01/21/Chat Server/">
-                Chat聊天服务器架设历程
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-01-21</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="Chat聊天服务器架设历程"><a href="#Chat聊天服务器架设历程" class="headerlink" title="Chat聊天服务器架设历程"></a>Chat聊天服务器架设历程</h1><hr>
-<h2 id="2015年11月3日-13-16-20-在Github上找到了Lets-chat项目"><a href="#2015年11月3日-13-16-20-在Github上找到了Lets-chat项目" class="headerlink" title="2015年11月3日 13:16:20 在Github上找到了Lets chat项目"></a>2015年11月3日 13:16:20 在Github上找到了Lets chat项目</h2><p><strong>首先安装了说明上的依赖</strong>  </p>
-<p>nodejs 0.10+<br>MongoDB 2.6+<br>Python 2.7.x</p>
-<p><strong>然后将项目clone到本地目录</strong>  </p>
-<p>git clone <a href="https://github.com/sdelements/lets-chat.git">https://github.com/sdelements/lets-chat.git</a></p>
-<p><strong>安装项目依赖</strong>  </p>
-<p>cd lets-chat  </p>
-<p>npm install</p>
-        </div>
-        <a href="/myBlog/2016/01/21/Chat Server/" class="read-more">Read More</a>
-    
-
-</div>
-            
         </section>
+
     </div>
 </div>
-
-
-
-
-
 
 </div>
 
