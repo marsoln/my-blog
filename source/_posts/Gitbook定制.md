@@ -288,3 +288,146 @@ exit 0
 fi
 
 ```
+
+## 自动扫描目录生成SUMMARY.md文件
+
+### 实现思路
+
+- 扫描文件目录,获取文件列表
+- 循环文件列表读取文件内容
+    - 将文件内容拆分成行
+    - 正则匹配标题行
+        - 获取标题深度
+        - 生成hash锚点
+    - 重新写入生成后的内容到md文件
+    - 根据标题/标题深度/锚点生成SUMMARY.md结构描述文件
+
+```javascript
+const glob = require('glob');   // file scanner lib
+const fs = require('fs');
+const path = require('path');
+const borschikHash = require('borschik-hash');  // hash generator lib
+const config = require('../config/server.json');    // locale config
+const DOC_DIR = config.build.dirs.subjects;
+
+let titleReg = /^#+\s([^\n\{#\}]+)/gi;
+let titleHashReg = /\{#([\w\W]+)\}/;
+let structureMetaData = [];
+
+
+/**
+ * generate the content of summary.md
+ */
+let generateContent = function() {
+  if (structureMetaData.length > 0) {
+    let contentArr = ['# SUMMARY\n\n'];
+    let _index = contentArr.length;
+    structureMetaData.forEach(meta => {
+      contentArr[_index++] = `${' '.repeat(meta['depth'] * 4)}`; // indents of menu depth level
+      if (meta.hash) {
+        contentArr[_index++] = `* [${meta.title}](./${meta.filepath}#${meta.hash})`;
+      } else {
+        contentArr[_index++] = `* [${meta.title}](./${meta.filepath})`;
+      }
+      contentArr[_index++] = '\n';
+    });
+    return contentArr.join('');
+  } else {
+    console.error(`未读取到有效的 markdown 目录结构信息.`);
+    process.exit(-1);
+  }
+};
+
+/**
+ * Rewrite the content into file
+ * @param {string} filepath
+ * @param {string} content
+ * @param {string} encoding
+ */
+let rewriteFile = function(filepath, content = '', encoding = 'utf-8') {
+  try {
+    if (fs.existsSync(filepath)) {
+      fs.unlinkSync(filepath);
+    }
+  } catch (e) {
+    console.error(e.message);
+  } finally {
+    fs.writeFile(filepath, content, encoding, (err) => {
+      if (err) {
+        console.error(err.message);
+        process.exit(-1);
+      }
+    });
+  }
+};
+
+/**
+ * Create summary.md
+ */
+let generateSummaryFile = function() {
+  let filepath = path.join(__dirname, DOC_DIR, 'SUMMARY.md');
+  rewriteFile(filepath, generateContent());
+};
+
+glob("**/*.md", function(err, files) {
+  if (err) {
+    console.error(err.message);
+    process.exit(-1);
+  } else {
+    files.forEach(filepath => {
+      let absoluteFilePath = path.join(__dirname, DOC_DIR, filepath);
+      let originContent = fs.readFileSync(absoluteFilePath, 'utf-8');
+
+      /**
+       * If the content is not empty,
+       * try to split it into lines.
+       * then get the titleReg-matched lines,
+       * ensure that each of them has an unique anchor name,
+       * no matter whether they were linked or not,
+       * cause we need 2 generate the summary menus and they need hash
+       */
+      if (originContent.length > 0) {
+        let lines = originContent.split('\n');
+        let newLines = lines.map(lineContent => {
+          let title = filepath.split('/').reverse()[0];
+          let hash = null;
+          let depth = 0;
+          let _title = titleReg.exec(lineContent);
+          let _hash = titleHashReg.exec(lineContent);
+
+          if (_title && _title.length > 0) {
+            // depth begins from 0
+            // which means it is just one less than the amount of '#' in front of the line
+            depth = _title[0].split(/\s/ig)[0].length - 1;
+            title = _title[_title.length - 1].trim();
+
+            // generate the hash anchors for the titles those don't have any anchor
+            if (_hash && _hash.length > 0) {
+              hash = _hash[_hash.length - 1].trim();
+            } else {
+              // append the hash code to the end of line
+              hash = borschikHash(title);
+              lineContent = `${lineContent} {#${hash}}`;
+            }
+
+            // the meta data of the structures for the summary.md
+            structureMetaData[structureMetaData.length] = {
+              filepath,
+              title,
+              depth,
+              hash
+            };
+          }
+          return lineContent;
+        });
+
+        // rewirte the new content into file
+        let fileContent = newLines.join('\n');
+        rewriteFile(filepath, fileContent);
+      }
+    });
+    generateSummaryFile();
+  }
+});
+
+```
