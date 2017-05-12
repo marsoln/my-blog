@@ -123,6 +123,69 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/my-blog/2017/05/12/interviewQuestions/">
+                interviewQuestions
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2017-05-12</span>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="在-surmon-me-上看到的一个面试题"><a href="#在-surmon-me-上看到的一个面试题" class="headerlink" title="在 surmon.me 上看到的一个面试题"></a>在 <a href="https://surmon.me/" target="_blank" rel="external">surmon.me</a> 上看到的一个面试题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> greeting = <span class="string">'My name is $&#123;name&#125;, age $&#123;age&#125;, I am a $&#123;job.jobName&#125;'</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> employee = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'XiaoMing'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">11</span>,</div><div class="line">  <span class="attr">job</span>: &#123;</div><div class="line">    <span class="attr">jobName</span>: <span class="string">'designer'</span>,</div><div class="line">    <span class="attr">jobLevel</span>: <span class="string">'senior'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> result = greeting.render(employee)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(result) <span class="comment">// My name is XiaoMing, age 11, I am a designer</span></div></pre></td></tr></table></figure>
+<p>第一时间想到的方案就是使用正则表达式匹配到对应的属性,然后根据属性名称替换为实际值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">String</span>.prototype.render = <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/\x24\x7b([\w\.]+)\x7d/g</span>, (matchStr, attrName) =&gt; &#123;</div><div class="line">    <span class="keyword">return</span> ctx[attrName]</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后问题出现了,当 <code>attrName</code> 匹配到 <code>&quot;job.jobName&quot;</code> 时,通过索引的方式取值会变成 <code>ctx[&quot;job.jobName&quot;]</code>,得到 <code>undefined</code></p>
+<p>接下来,考虑拆分属性名称</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">String</span>.prototype.render = <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/\x24\x7b([\w\.]+)\x7d/g</span>, (matchStr, attrName) =&gt; &#123;</div><div class="line">    <span class="keyword">let</span> attrPaths = attrName.split(<span class="regexp">/\./</span>)</div><div class="line">    <span class="keyword">return</span> attrPaths.reduce(<span class="function">(<span class="params">entity,attr</span>)=&gt;</span> entity[attr], ctx)</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如此一来,就会将匹配到的 <code>&quot;job.jobName&quot;</code> 拆分为 <code>&quot;job&quot;</code> 和 <code>&quot;jobName&quot;</code> 两个路径,然后调用归约函数 第一次得到 <code>ctx[&quot;job&quot;]</code> 下次一得到 <code>ctx[&quot;job&quot;][&quot;jobName&quot;]</code> 然后返回该值.</p>
+<p>为了程序健壮可以再稍微完善一下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">String</span>.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params">ctx</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.replace(<span class="regexp">/\x24\x7b([\w\.]+)\x7d/g</span>, (matchStr, key) =&gt; key.split(<span class="string">'\.'</span>).reduce(<span class="function">(<span class="params">obj, attr</span>) =&gt;</span> (obj||&#123;&#125;)[attr], ctx) || matchStr)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后,看到有人给出的答案是这样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">String</span>.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params">ctx</span>) </span>&#123;</div><div class="line">  <span class="keyword">with</span> (ctx) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">eval</span>(<span class="string">'`'</span> + <span class="keyword">this</span> + <span class="string">'`'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>给跪了, OTZ</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/my-blog/2017/03/21/GitlabJenkinsHook/">
+                GitlabJenkinsHook
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2017-03-21</span>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><ul>
+<li>First we need to install <code>jenkins-job-build</code> to help us with YAML template to configurate jenkins jobs.</li>
+<li>Then create a </li>
+</ul>
+<h2 id="Define-jenkins-job-for-gitlab"><a href="#Define-jenkins-job-for-gitlab" class="headerlink" title="Define jenkins job for gitlab"></a>Define jenkins job for gitlab</h2>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/my-blog/2017/03/02/Gitbook定制/">
                 Gitbook定制
             </a>
@@ -418,43 +481,24 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/my-blog/2016/01/21/Chat Server/">
-                Chat聊天服务器架设历程
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-01-21</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="Chat聊天服务器架设历程"><a href="#Chat聊天服务器架设历程" class="headerlink" title="Chat聊天服务器架设历程"></a>Chat聊天服务器架设历程</h1><hr>
-<h2 id="2015年11月3日-13-16-20-在Github上找到了Lets-chat项目"><a href="#2015年11月3日-13-16-20-在Github上找到了Lets-chat项目" class="headerlink" title="2015年11月3日 13:16:20 在Github上找到了Lets chat项目"></a>2015年11月3日 13:16:20 在Github上找到了Lets chat项目</h2><p><strong>首先安装了说明上的依赖</strong>  </p>
-<p>nodejs 0.10+<br>MongoDB 2.6+<br>Python 2.7.x</p>
-<p><strong>然后将项目clone到本地目录</strong>  </p>
-<p>git clone <a href="https://github.com/sdelements/lets-chat.git">https://github.com/sdelements/lets-chat.git</a></p>
-<p><strong>安装项目依赖</strong>  </p>
-<p>cd lets-chat  </p>
-<p>npm install</p>
-        </div>
-        <a href="/my-blog/2016/01/21/Chat Server/" class="read-more">Read More</a>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
 
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/my-blog/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/my-blog/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -479,19 +523,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/my-blog/2017/05/12/interviewQuestions/">interviewQuestions</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/my-blog/2017/03/21/GitlabJenkinsHook/">GitlabJenkinsHook</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/my-blog/2017/03/02/Gitbook定制/">Gitbook定制</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/my-blog/2016/10/01/好玩的社区/">好玩的社区</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/my-blog/2016/09/28/踩过的坑/">踩过的坑</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/my-blog/2016/09/28/工具使用/">工具使用</a>
             </li>
             
         </ul>
