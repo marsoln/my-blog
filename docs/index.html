@@ -308,7 +308,7 @@
 - 将生成的.ssh目录中的id_rsa.pub的内容添加到gitlab/github的个人账户的ssh-key
 - 验证 ssh 是否添加成功 `ssh git@github.com`
 </code></pre><h3 id="解决git-clone时文件目录过长的方法"><a href="#解决git-clone时文件目录过长的方法" class="headerlink" title="解决git clone时文件目录过长的方法"></a>解决git clone时文件目录过长的方法</h3><pre><code>修改git设置 `git config --system core.longpaths true`
-</code></pre><h3 id="解决-git-review-时-no-matching-key-exchange-method-found-Their-offer-diffie-hellman-group1-sha1-的错误"><a href="#解决-git-review-时-no-matching-key-exchange-method-found-Their-offer-diffie-hellman-group1-sha1-的错误" class="headerlink" title="解决 git review 时 no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 的错误"></a>解决 git review 时 no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 的错误</h3><p>该错误是由于服务器ssh验证使用了一个过时的算法导致的,但是为了能够成功通过,需要在bash每次打开时设置一下 <a href="http://stackoverflow.com/questions/38770202/using-kexalgorithms-diffie-hellman-group1-sha1-did-not-resolve-no-matching-ke">stackoverflow solution</a></p>
+</code></pre><h3 id="解决-git-review-时-no-matching-key-exchange-method-found-Their-offer-diffie-hellman-group1-sha1-的错误"><a href="#解决-git-review-时-no-matching-key-exchange-method-found-Their-offer-diffie-hellman-group1-sha1-的错误" class="headerlink" title="解决 git review 时 no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 的错误"></a>解决 git review 时 no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 的错误</h3><p>该错误是由于服务器ssh验证使用了一个过时的算法导致的,但是为了能够成功通过,需要在bash每次打开时设置一下 <a href="http://stackoverflow.com/questions/38770202/using-kexalgorithms-diffie-hellman-group1-sha1-did-not-resolve-no-matching-ke" target="_blank" rel="external">stackoverflow solution</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> GIT_SSH_COMMAND=<span class="string">'ssh -o KexAlgorithms=+diffie-hellman-group1-sha1'</span></div></pre></td></tr></table></figure>
 <p>stackoverflow上有热心人说可以在 git config 中做配置,但是我试了,并没有什么用,不过还是记录一下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">git config --global core.sshCommand <span class="string">"ssh -o KexAlgorithms=+diffie-hellman-group1-sha1"</span></div><div class="line">git config --global core.scpCommand <span class="string">"scp -o KexAlgorithms=+diffie-hellman-group1-sha1"</span></div></pre></td></tr></table></figure>
@@ -407,8 +407,8 @@
         <div class="content">
             <h4 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h4><p>首先,需要安装一些必要的软件 </p>
 <ul>
-<li><a href="https://nodejs.org/zh-cn/">nodejs(建议最新的6+) </a></li>
-<li><a href="https://www.mongodb.com/download-center#community">mongodb</a></li>
+<li><a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">nodejs(建议最新的6+) </a></li>
+<li><a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">mongodb</a></li>
 <li><a href="https://github.com/ServiceStack/redis-windows">redis(windows)</a></li>
 </ul>
 <p>请按照官方教程下载,然后无脑下一步下一步至全部安装完成.<br>当然<strong>mongodb在注册成系统服务</strong>以及<strong>windows系统下redis服务启动</strong>的时候可能会遇到各种小问题,但是网上有很多的教程和解决方案,我就不再赘述…</p>
@@ -445,7 +445,7 @@
 <p>所以正巧凑着最近工作不是很忙,就打算搞了个JavaScript全栈的demo.</p>
 <p>一来,可以分享给更多关注这一块的朋友,去作为入门参考.<br>二来,也可以作为自己两年多的前端工作经验的阶段性总结.<br>再者,也算是回报社区,毕竟看了这么多大神的帖子也没donate过多少钱,总觉得自己欠社区的.<br>最后,起到一个对未来的敦促作用,万一有朝一日怠惰了,回头看看,说不定还能重燃青春.</p>
 <blockquote>
-<p>食用本系列文章前请注意:<br>1.由于本文大量涉及ES6的基本语法和特性,如果读者对其不甚是了解,建议先读一下<a href="http://es6.ruanyifeng.com">阮一峰老师的入门博客</a><br>2.作为一个全栈入门参考的系列文章,是假设读者们有一定前端基础的. 如果读者在食用时感觉头晕目眩,请留言给我,我会尽量对内容做些许补充说明<br>3.由于本人能力有限,文中出现过激或者错误的观点,烦请读者们悉数指出<br>4.文中并没有什么晦涩难懂或者炫目耀眼的黑魔法,所以注释不会出现得太频繁,请放心食用</p>
+<p>食用本系列文章前请注意:<br>1.由于本文大量涉及ES6的基本语法和特性,如果读者对其不甚是了解,建议先读一下<a href="http://es6.ruanyifeng.com" target="_blank" rel="external">阮一峰老师的入门博客</a><br>2.作为一个全栈入门参考的系列文章,是假设读者们有一定前端基础的. 如果读者在食用时感觉头晕目眩,请留言给我,我会尽量对内容做些许补充说明<br>3.由于本人能力有限,文中出现过激或者错误的观点,烦请读者们悉数指出<br>4.文中并没有什么晦涩难懂或者炫目耀眼的黑魔法,所以注释不会出现得太频繁,请放心食用</p>
 </blockquote>
         </div>
         <a href="/my-blog/2016/09/27/jsFullStackSeries/01/" class="read-more">Read More</a>
