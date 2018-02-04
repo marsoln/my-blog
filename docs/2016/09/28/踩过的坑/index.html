@@ -217,7 +217,23 @@
 <h1 id="REACT-NATIVE"><a href="#REACT-NATIVE" class="headerlink" title="REACT-NATIVE"></a>REACT-NATIVE</h1><h3 id="windows环境下-android开发"><a href="#windows环境下-android开发" class="headerlink" title="windows环境下 android开发"></a>windows环境下 android开发</h3><pre><code>- socket.io 出现引用错误,初步估计是因为socket.io和react-native都是用webpack打包,所以查找引用目录出现了问题,
 于是将socket.io.js(打包后的文件)作为一个单独模块添加到项目里,
 然后报了一些navigator的错误(因为根据浏览器的userAgent判断环境),无脑的去掉这些地方就能用了
-</code></pre><h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><pre><code>nginx 在代理同一个服务器上的多个 nodejs 实例时，当 nodejs 中有使用了 socket.io ，就会出现不断 connect 的问题，这是因为 nginx 在代理时没有把套接字链接视作一个长链接导致的，配置 upsteam 的 keepalive 之后便可以解决该问题。
+</code></pre><h3 id="ios-环境下添加-react-native-vector-icons-引用"><a href="#ios-环境下添加-react-native-vector-icons-引用" class="headerlink" title="ios 环境下添加 react-native-vector-icons 引用"></a>ios 环境下添加 react-native-vector-icons 引用</h3><ul>
+<li><p>XCode 中添加 RNVectorIcons.xcodeproj 到 Libraries</p>
+<ul>
+<li>Build Phases 中添加 libRNVectorIcons 到 Link Binary With Libraries</li>
+<li>Build Phases 中添加 FontAwesome.ttf 到 CopyBundleResources</li>
+<li>Info.plist 中添加 Fonts provided by application<ul>
+<li>第一栏添加 FontAwesome.ttf</li>
+</ul>
+</li>
+</ul>
+<p>然后运行报错 watchman EMFILE</p>
+<p>使用 brew 重新安装 watchman 然后 删除 node_modules 使用 npm（注意不是yarn）install</p>
+<p>重新打包即可</p>
+<p>还有一种方法没有试过，执行命令：<code>ulimit 4096 # for instance</code></p>
+</li>
+</ul>
+<h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><pre><code>nginx 在代理同一个服务器上的多个 nodejs 实例时，当 nodejs 中有使用了 socket.io ，就会出现不断 connect 的问题，这是因为 nginx 在代理时没有把套接字链接视作一个长链接导致的，配置 upsteam 的 keepalive 之后便可以解决该问题。
 </code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">upstream upstream_host &#123;</div><div class="line">	server 127.0.0.1:8090;</div><div class="line">	keepalive 64;</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ^~ /socket &#123;</div><div class="line">		proxy_pass https://upstream_host;</div><div class="line">		proxy_redirect off;</div><div class="line">		proxy_pass_request_headers on;</div><div class="line">		proxy_http_version 1.1;</div><div class="line">		proxy_set_header Upgrade $http_upgrade;</div><div class="line">		proxy_set_header Connection "upgrade";</div><div class="line">&#125;</div></pre></td></tr></table></figure>
     </div>
 
