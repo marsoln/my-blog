@@ -137,27 +137,27 @@
         
 
         <!-- Post Content -->
-        <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h3 id="IE-系列"><a href="#IE-系列" class="headerlink" title="IE 系列"></a>IE 系列</h3><ul>
+        <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h2 id="IE-系列"><a href="#IE-系列" class="headerlink" title="IE 系列"></a>IE 系列</h2><ul>
 <li>IE11在跨站引用的样式文件中的url(比如字体文件路径)解析时,会将document文档的域作为当前域,而不是该样式文件的域.</li>
 <li>在IE8中使用respond.js去使之支持css3媒体查询的时候,值得注意的是<strong>respond默认不会加载跨域样式资源</strong>,</li>
 <li>在IE8中实现数据可视化,千万不要用基于canvas绘图的插件+excanvas,这是自寻死路.还是找找svg+vml绘图的插件吧,比如highcharts之类的.效率问题.</li>
 </ul>
-<h3 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h3><ul>
+<h2 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h2><ul>
 <li>XMLHttpRequest的<code>setRequestHeader</code>要在<code>open</code>后进行</li>
 <li>在跨域的POST请求,需要携带cookie身份信息时,XMLHttpRequest的<code>withCredentials</code>要在<code>open</code>后,设置为<code>true</code>(对应的,服务器要有<code>Access-Control-Allow-Credentials: true</code>的responseHeader)</li>
 <li>XHR的同步请求中不能设置timeout,否则会报错</li>
 <li>XHR的ontimeout,onabort,onerror等等事件在onreadystatechange事件执行后才会触发 所以如果要reject结果的话,需要 setTimeout 0 将其延迟到下一tick</li>
 </ul>
 <a id="more"></a>
-<h3 id="IOS-微信X5"><a href="#IOS-微信X5" class="headerlink" title="IOS 微信X5"></a>IOS 微信X5</h3><ul>
+<h2 id="IOS-微信X5"><a href="#IOS-微信X5" class="headerlink" title="IOS 微信X5"></a>IOS 微信X5</h2><ul>
 <li>不支持canvas.resetTransform()</li>
 <li>不支持Array.fill</li>
 <li>不支持Array.findIndex </li>
 </ul>
-<h3 id="Android-微信X5"><a href="#Android-微信X5" class="headerlink" title="Android 微信X5"></a>Android 微信X5</h3><ul>
+<h2 id="Android-微信X5"><a href="#Android-微信X5" class="headerlink" title="Android 微信X5"></a>Android 微信X5</h2><ul>
 <li>不支持字符串模板</li>
 </ul>
-<h1 id="NODEJS"><a href="#NODEJS" class="headerlink" title="NODEJS"></a>NODEJS</h1><h3 id="MSBuild-Error-MSB4132-错误"><a href="#MSBuild-Error-MSB4132-错误" class="headerlink" title="MSBuild Error MSB4132 错误"></a>MSBuild Error MSB4132 错误</h3><p>该错误是由于node-gyp默认使用2.0版本的msbuild,可能和当前机器上的msbuild版本不一致导致的.</p>
+<h1 id="NODEJS"><a href="#NODEJS" class="headerlink" title="NODEJS"></a>NODEJS</h1><h2 id="MSBuild-Error-MSB4132-错误"><a href="#MSBuild-Error-MSB4132-错误" class="headerlink" title="MSBuild Error MSB4132 错误"></a>MSBuild Error MSB4132 错误</h2><p>该错误是由于node-gyp默认使用2.0版本的msbuild,可能和当前机器上的msbuild版本不一致导致的.</p>
 <blockquote>
 <p>msbuild error msb4132 the tools version 2.0 is unrecognized. available tools versions are 4.0</p>
 </blockquote>
@@ -172,7 +172,7 @@
 </li>
 <li>重装node-gyp</li>
 </ul>
-<h3 id="MSBuild-Error-MSB4019-错误"><a href="#MSBuild-Error-MSB4019-错误" class="headerlink" title="MSBuild Error MSB4019 错误"></a>MSBuild Error MSB4019 错误</h3><p>这个错误是由于node-gyp在build一些项目,没有找到系统配置的microsoft.cpp.default.props文件位置导致的</p>
+<h2 id="MSBuild-Error-MSB4019-错误"><a href="#MSBuild-Error-MSB4019-错误" class="headerlink" title="MSBuild Error MSB4019 错误"></a>MSBuild Error MSB4019 错误</h2><p>这个错误是由于node-gyp在build一些项目,没有找到系统配置的microsoft.cpp.default.props文件位置导致的</p>
 <ul>
 <li>首选,要确保已经安装了vs,譬如vs 2015(V140),如果没有安装那是找不到这个文件的,起码win10下我装了<code>vcredist_x64 2013</code>是没有的</li>
 <li>其次,确保路径设置正确<ul>
@@ -182,9 +182,9 @@
 </li>
 <li>重新 <code>npm rebuild node-sass</code></li>
 </ul>
-<strike><br>### MSBuild Error MSB3428 错误<br><br>该错误是由于系统默认路径下没有找到VCBuild.exe可执行文件导致的，依然是某些类库在当前系统打包的时候出现的问题<br><br>- 首先检查系统是否安装了.net framework 2.0 sdk<br>    - 如果没有装,这里是下载地址 <a href="https://download.microsoft.com/download/a/2/8/a28bafa4-c007-4224-a53f-54aee547ed97/setup.exe" target="_blank" rel="external">https://download.microsoft.com/download/a/2/8/a28bafa4-c007-4224-a53f-54aee547ed97/setup.exe</a> 注意,win7以上的操作系统,不！支！持！哈哈哈哈哈哈！<br>- 确认安装之后,在系统环境变量中为当前用户(或者所有用户，自行斟酌)的PATH配置中添加VCBuild.exe的绝对路径<br></strike>
+<strike><br>## MSBuild Error MSB3428 错误<br><br>该错误是由于系统默认路径下没有找到VCBuild.exe可执行文件导致的，依然是某些类库在当前系统打包的时候出现的问题<br><br>- 首先检查系统是否安装了.net framework 2.0 sdk<br>    - 如果没有装,这里是下载地址 <a href="https://download.microsoft.com/download/a/2/8/a28bafa4-c007-4224-a53f-54aee547ed97/setup.exe" target="_blank" rel="external">https://download.microsoft.com/download/a/2/8/a28bafa4-c007-4224-a53f-54aee547ed97/setup.exe</a> 注意,win7以上的操作系统,不！支！持！哈哈哈哈哈哈！<br>- 确认安装之后,在系统环境变量中为当前用户(或者所有用户，自行斟酌)的PATH配置中添加VCBuild.exe的绝对路径<br></strike>
 
-<h3 id="Babel-Gulp使用-Symbol-iterator-时编译出现错误"><a href="#Babel-Gulp使用-Symbol-iterator-时编译出现错误" class="headerlink" title="Babel-Gulp使用[Symbol.iterator]时编译出现错误"></a>Babel-Gulp使用[Symbol.iterator]时编译出现错误</h3><blockquote>
+<h2 id="Babel-Gulp使用-Symbol-iterator-时编译出现错误"><a href="#Babel-Gulp使用-Symbol-iterator-时编译出现错误" class="headerlink" title="Babel-Gulp使用[Symbol.iterator]时编译出现错误"></a>Babel-Gulp使用[Symbol.iterator]时编译出现错误</h2><blockquote>
 <p>npm install babel-plugin-transform-runtime</p>
 </blockquote>
 <p>然后在</p>
@@ -212,12 +212,12 @@
     at Function.Module.runMain (module.js:467:10)
 
 尚未有什么好的解决方法,估计是其自身的问题,babel-gulp的repo里也有对应的[ISSUE](https://github.com/babel/gulp-babel/issues/50 &quot;Cannot find module &apos;babel-runtime/regenerator&apos;&quot;)
-</code></pre><h1 id="ELM"><a href="#ELM" class="headerlink" title="ELM"></a>ELM</h1><h3 id="windows环境下-elm-package-install-elm-make-出现错误permission-denied"><a href="#windows环境下-elm-package-install-elm-make-出现错误permission-denied" class="headerlink" title="windows环境下 elm-package install/elm-make 出现错误permission denied"></a>windows环境下 elm-package install/elm-make 出现错误permission denied</h3><pre><code>elm-make: elm-lang-core-5204441: MoveFileEx &quot;elm-lang-core-5204441&quot; &quot;2.1.0&quot;: permission denied (Access is denied.)
+</code></pre><h1 id="ELM"><a href="#ELM" class="headerlink" title="ELM"></a>ELM</h1><h2 id="windows环境下-elm-package-install-elm-make-出现错误permission-denied"><a href="#windows环境下-elm-package-install-elm-make-出现错误permission-denied" class="headerlink" title="windows环境下 elm-package install/elm-make 出现错误permission denied"></a>windows环境下 elm-package install/elm-make 出现错误permission denied</h2><pre><code>elm-make: elm-lang-core-5204441: MoveFileEx &quot;elm-lang-core-5204441&quot; &quot;2.1.0&quot;: permission denied (Access is denied.)
 </code></pre><p>详情参见 <a href="https://github.com/elm-lang/elm-platform/issues/81">ISSUE</a><br>分析错误,发现是elm包管理器在下载pkg之后需要创建一个版本号然后将对应的文件移动到其目录下,这个动作在windows平台上有安全问题,所以操作失败.<br>临时解决方法是手动移动<code>elm-lang-core-5204441</code>文件夹到<code>elm-stuff/packages/elm-lang/core/</code>目录下,重命名目录名称为<code>2.1.0</code></p>
-<h1 id="REACT-NATIVE"><a href="#REACT-NATIVE" class="headerlink" title="REACT-NATIVE"></a>REACT-NATIVE</h1><h3 id="windows环境下-android开发"><a href="#windows环境下-android开发" class="headerlink" title="windows环境下 android开发"></a>windows环境下 android开发</h3><pre><code>- socket.io 出现引用错误,初步估计是因为socket.io和react-native都是用webpack打包,所以查找引用目录出现了问题,
+<h1 id="REACT-NATIVE"><a href="#REACT-NATIVE" class="headerlink" title="REACT-NATIVE"></a>REACT-NATIVE</h1><h2 id="windows环境下-android开发"><a href="#windows环境下-android开发" class="headerlink" title="windows环境下 android开发"></a>windows环境下 android开发</h2><pre><code>- socket.io 出现引用错误,初步估计是因为socket.io和react-native都是用webpack打包,所以查找引用目录出现了问题,
 于是将socket.io.js(打包后的文件)作为一个单独模块添加到项目里,
 然后报了一些navigator的错误(因为根据浏览器的userAgent判断环境),无脑的去掉这些地方就能用了
-</code></pre><h3 id="ios-环境下添加-react-native-vector-icons-引用"><a href="#ios-环境下添加-react-native-vector-icons-引用" class="headerlink" title="ios 环境下添加 react-native-vector-icons 引用"></a>ios 环境下添加 react-native-vector-icons 引用</h3><ul>
+</code></pre><h2 id="ios-环境下添加-react-native-vector-icons-引用"><a href="#ios-环境下添加-react-native-vector-icons-引用" class="headerlink" title="ios 环境下添加 react-native-vector-icons 引用"></a>ios 环境下添加 react-native-vector-icons 引用</h2><ul>
 <li><p>XCode 中添加 RNVectorIcons.xcodeproj 到 Libraries</p>
 <ul>
 <li>Build Phases 中添加 libRNVectorIcons 到 Link Binary With Libraries</li>
@@ -235,6 +235,9 @@
 </ul>
 <h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><pre><code>nginx 在代理同一个服务器上的多个 nodejs 实例时，当 nodejs 中有使用了 socket.io ，就会出现不断 connect 的问题，这是因为 nginx 在代理时没有把套接字链接视作一个长链接导致的，配置 upsteam 的 keepalive 之后便可以解决该问题。
 </code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">upstream upstream_host &#123;</div><div class="line">	server 127.0.0.1:8090;</div><div class="line">	keepalive 64;</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ^~ /socket &#123;</div><div class="line">		proxy_pass https://upstream_host;</div><div class="line">		proxy_redirect off;</div><div class="line">		proxy_pass_request_headers on;</div><div class="line">		proxy_http_version 1.1;</div><div class="line">		proxy_set_header Upgrade $http_upgrade;</div><div class="line">		proxy_set_header Connection "upgrade";</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="DEBIAN"><a href="#DEBIAN" class="headerlink" title="DEBIAN"></a>DEBIAN</h1><p>使用 puppeteer 时会报依赖错误，普通用户只需要安装依赖即可解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line"></div><div class="line">sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget --fix-missing</div></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -281,6 +284,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/my-blog/2018/03/09/常用指令/">名字都没有你敢信</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/my-blog/2017/05/12/interviewQuestions/">有趣的面试题</a>
             </li>
             
@@ -290,10 +297,6 @@
             
             <li>
                 <a class="footer-post" href="/my-blog/2016/10/01/好玩的社区/">好玩的社区</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/my-blog/2016/09/28/踩过的坑/">踩过的坑</a>
             </li>
             
         </ul>

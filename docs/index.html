@@ -123,6 +123,34 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/my-blog/2018/03/09/常用指令/">
+                名字都没有你敢信
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2018-03-09</span>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h1><h2 id="查找端口占用并关闭进程"><a href="#查找端口占用并关闭进程" class="headerlink" title="查找端口占用并关闭进程"></a>查找端口占用并关闭进程</h2><p><code>sudo lsof -i :PORT</code> 显示指定端口的占用进程</p>
+<p><code>sudo kill -9 PID</code> 结束指定进程</p>
+<h2 id="查看磁盘占用"><a href="#查看磁盘占用" class="headerlink" title="查看磁盘占用"></a>查看磁盘占用</h2><p><code>df -h</code> 查看根目录的挂载盘占用情况</p>
+<p><code>du -h -d 1 PATH</code> 查看指定目录的磁盘情况</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/my-blog/2017/05/12/interviewQuestions/">
                 有趣的面试题
             </a>
@@ -268,12 +296,12 @@
 
     
         <div class="content">
-            <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h3 id="IE-系列"><a href="#IE-系列" class="headerlink" title="IE 系列"></a>IE 系列</h3><ul>
+            <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h2 id="IE-系列"><a href="#IE-系列" class="headerlink" title="IE 系列"></a>IE 系列</h2><ul>
 <li>IE11在跨站引用的样式文件中的url(比如字体文件路径)解析时,会将document文档的域作为当前域,而不是该样式文件的域.</li>
 <li>在IE8中使用respond.js去使之支持css3媒体查询的时候,值得注意的是<strong>respond默认不会加载跨域样式资源</strong>,</li>
 <li>在IE8中实现数据可视化,千万不要用基于canvas绘图的插件+excanvas,这是自寻死路.还是找找svg+vml绘图的插件吧,比如highcharts之类的.效率问题.</li>
 </ul>
-<h3 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h3><ul>
+<h2 id="Ajax-CORS"><a href="#Ajax-CORS" class="headerlink" title="Ajax/CORS"></a>Ajax/CORS</h2><ul>
 <li>XMLHttpRequest的<code>setRequestHeader</code>要在<code>open</code>后进行</li>
 <li>在跨域的POST请求,需要携带cookie身份信息时,XMLHttpRequest的<code>withCredentials</code>要在<code>open</code>后,设置为<code>true</code>(对应的,服务器要有<code>Access-Control-Allow-Credentials: true</code>的responseHeader)</li>
 <li>XHR的同步请求中不能设置timeout,否则会报错</li>
@@ -453,43 +481,24 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/my-blog/2016/01/21/Chat Server/">
-                Chat聊天服务器架设历程
-            </a>
-        </h1>
-        <div class="post-info">
-            <span class="date">2016-01-21</span>
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="Chat聊天服务器架设历程"><a href="#Chat聊天服务器架设历程" class="headerlink" title="Chat聊天服务器架设历程"></a>Chat聊天服务器架设历程</h1><hr>
-<h2 id="2015年11月3日-13-16-20-在Github上找到了Lets-chat项目"><a href="#2015年11月3日-13-16-20-在Github上找到了Lets-chat项目" class="headerlink" title="2015年11月3日 13:16:20 在Github上找到了Lets chat项目"></a>2015年11月3日 13:16:20 在Github上找到了Lets chat项目</h2><p><strong>首先安装了说明上的依赖</strong>  </p>
-<p>nodejs 0.10+<br>MongoDB 2.6+<br>Python 2.7.x</p>
-<p><strong>然后将项目clone到本地目录</strong>  </p>
-<p>git clone <a href="https://github.com/sdelements/lets-chat.git">https://github.com/sdelements/lets-chat.git</a></p>
-<p><strong>安装项目依赖</strong>  </p>
-<p>cd lets-chat  </p>
-<p>npm install</p>
-        </div>
-        <a href="/my-blog/2016/01/21/Chat Server/" class="read-more">Read More</a>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
 
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/my-blog/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/my-blog/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -514,6 +523,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/my-blog/2018/03/09/常用指令/">名字都没有你敢信</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/my-blog/2017/05/12/interviewQuestions/">有趣的面试题</a>
             </li>
             
@@ -523,10 +536,6 @@
             
             <li>
                 <a class="footer-post" href="/my-blog/2016/10/01/好玩的社区/">好玩的社区</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/my-blog/2016/09/28/踩过的坑/">踩过的坑</a>
             </li>
             
         </ul>

@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="奇技淫巧"/>
+        <meta property="og:title" content="marsoln&#39;s blog"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>奇技淫巧 - marsoln&#39;s blog</title>
+    <title>marsoln&#39;s blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -120,12 +120,12 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/my-blog/2016/09/28/奇技淫巧/">
-                奇技淫巧
+            <a href="/my-blog/2018/03/09/常用指令/">
+                名字都没有你敢信
             </a>
         </h1>
         <div class="post-info">
-            <span class="date">2016-09-28</span>
+            <span class="date">2018-03-09</span>
             <a href="#disqus_thread" class="comments">留言</a>
             
         </div>
@@ -137,53 +137,15 @@
         
 
         <!-- Post Content -->
-        <h3 id="generator-生成i内的-fibonacci数组"><a href="#generator-生成i内的-fibonacci数组" class="headerlink" title="generator 生成i内的 fibonacci数组"></a>generator 生成i内的 fibonacci数组</h3><pre><code>let i = 1000;
-[...(function(limit){ 
-    return function* (){
-        let [prev, curr] = [0,1]
-        while(prev + curr &lt; limit){
-            [prev, curr] = [curr, prev + curr]
-            yield curr
-        }
-    }
-})(i)()]
-</code></pre><a id="more"></a>
-<h3 id="不需要中间变量-交换两个值类型变量的值得装逼进阶"><a href="#不需要中间变量-交换两个值类型变量的值得装逼进阶" class="headerlink" title="不需要中间变量,交换两个值类型变量的值得装逼进阶"></a>不需要中间变量,交换两个值类型变量的值得装逼进阶</h3><pre><code>let [a,b]=[1,2]
-// 普通青年
-a=a+b
-b=a-b
-a=a-b
-// 文艺青年
-a=a^b
-b=a^b
-a=a^b
-// 进阶演化
-a^=b
-b^=a
-a^=b
------
-b^=a^=b
-a^=b
------
-a=(b^=a^=b)^a
------
-// 究极装逼方案
-b^=a^(a=b)
-</code></pre><p>为什么会这样呢?<br>因为行内的赋值写法一开始就把右侧变量的值确定下来了<br>也就是说 <code>b^=a^(a=b)</code><br>等价于 <code>b=b^a^(a=b)</code><br>等价于 <code>b=2^1^(a=2)</code><br>等价于 <code>a=2;b=2^1^2</code> – <code>a=2;b=1</code><br>也就解释了 为什么<code>a^=b^=a^=b</code>是错误的<br>因为其等价于<code>a=a^(b=b^(a=a^b))</code><br><code>a=1^(b=2^(a=1^2))</code>   // a=1,b=2<br><code>a=1^(b=2^(a=3))</code> // a被赋值为3,b=2<br><code>a=1^(b=2^3)</code>  // a=3,b=2<br><code>a=1^(b=1)</code>  // a=3,b被赋值为1<br><code>a=1^1</code> // a=1,b=1<br><code>a=0</code> // a被赋值为0,b=1  </p>
-<h3 id="不动点组合子"><a href="#不动点组合子" class="headerlink" title="不动点组合子"></a>不动点组合子</h3><pre><code>// 用于将递归匿名函数
-let Y = f =&gt; (x =&gt; f(y =&gt; x(x)(y)))(x =&gt; f(y =&gt; x(x)(y)))
-let steamrollArray = a =&gt; Y(fl =&gt; i =&gt; i instanceof Array ? i.reduce((p, n) =&gt; p.concat(fl(n)), []) : i)(a)
-</code></pre><p>采用Y-combinator(fixed-point combinator)的方式去实现匿名函数递归.<br>参考<a href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%8A%A8%E7%82%B9%E7%BB%84%E5%90%88%E5%AD%90" target="_blank" rel="external">不动点组合子</a></p>
+        <h1 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h1><h2 id="查找端口占用并关闭进程"><a href="#查找端口占用并关闭进程" class="headerlink" title="查找端口占用并关闭进程"></a>查找端口占用并关闭进程</h2><p><code>sudo lsof -i :PORT</code> 显示指定端口的占用进程</p>
+<p><code>sudo kill -9 PID</code> 结束指定进程</p>
+<h2 id="查看磁盘占用"><a href="#查看磁盘占用" class="headerlink" title="查看磁盘占用"></a>查看磁盘占用</h2><p><code>df -h</code> 查看根目录的挂载盘占用情况</p>
+<p><code>du -h -d 1 PATH</code> 查看指定目录的磁盘情况</p>
 
     </div>
 
     
 
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/my-blog/tags/javascript/">#javascript</a>
-        </div>
     
 
     <!-- Comments -->
