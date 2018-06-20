@@ -137,10 +137,122 @@
         
 
         <!-- Post Content -->
-        <h1 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h1><h2 id="查找端口占用并关闭进程"><a href="#查找端口占用并关闭进程" class="headerlink" title="查找端口占用并关闭进程"></a>查找端口占用并关闭进程</h2><p><code>sudo lsof -i :PORT</code> 显示指定端口的占用进程</p>
-<p><code>sudo kill -9 PID</code> 结束指定进程</p>
-<h2 id="查看磁盘占用"><a href="#查看磁盘占用" class="headerlink" title="查看磁盘占用"></a>查看磁盘占用</h2><p><code>df -h</code> 查看根目录的挂载盘占用情况</p>
-<p><code>du -h -d 1 PATH</code> 查看指定目录的磁盘情况</p>
+        <h1 id="通用指令"><a href="#通用指令" class="headerlink" title="通用指令"></a>通用指令</h1><ul>
+<li>查看占用端口<ul>
+<li>sudo lsof -i :PORT 显示指定端口的占用进程</li>
+<li>ps -ef | grep “xxx”  查看指定名称的进程</li>
+<li>sudo kill -9 PID 结束指定进程</li>
+</ul>
+</li>
+<li>查看磁盘占用<ul>
+<li>df -h 查看根目录的挂载盘占用情况</li>
+<li>du -h -d 1 PATH 查看指定目录的磁盘情况</li>
+</ul>
+</li>
+<li>查找文件<ul>
+<li>find / -name “xxx”</li>
+</ul>
+</li>
+<li>crontab 修改默认编辑器<ul>
+<li>select-editor</li>
+</ul>
+</li>
+<li>给用户添加目录权限<ul>
+<li>chown user:user DIR<ul>
+<li>chmod 760 DIR</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>给用户添加 sudo 权限<ul>
+<li>vim /etc/sudoers 然后添加权限记录</li>
+</ul>
+</li>
+</ul>
+<h1 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h1><ul>
+<li>远程下载文件到本地  scp -P 端口 username@servername:/remote_path/filename ~/local_destination</li>
+<li>上传本地文件到远程  scp -P 端口 ~/local_path/local_filename username@servername:/remote_path</li>
+</ul>
+<h1 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h1><ul>
+<li><p>生成 rsa签名</p>
+<ul>
+<li>ssh-keygen -t rsa -b 4096 -C “your_email@example.com” </li>
+</ul>
+</li>
+<li><p>安全配置</p>
+<ul>
+<li>vi /etc/ssh/sshd_config</li>
+<li>禁用密码验证<ul>
+<li>PasswordAuthentication no</li>
+</ul>
+</li>
+<li>启用密钥验证<ul>
+<li>RSAAuthentication yes</li>
+<li>PubkeyAuthentication yes</li>
+</ul>
+</li>
+<li>指定公钥数据库文件<ul>
+<li>AuthorsizedKeysFile PATH/TO/FILE</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>将远程机器端口8082映射到本地8000</p>
+<ul>
+<li>ssh -NfL *:8000:localhost:8082 root@47.52.207.196 -p 65499</li>
+</ul>
+</li>
+</ul>
+<h1 id="shadowsocks"><a href="#shadowsocks" class="headerlink" title="shadowsocks"></a>shadowsocks</h1><ul>
+<li><p>安装</p>
+<ul>
+<li>sudo apt-get install python-pip</li>
+<li>sudo pip install setuptools</li>
+<li>sudo pip install shadowsocks</li>
+</ul>
+</li>
+<li><p>创建配置文件</p>
+<ul>
+<li>vim /etc/shadowsocks.conf</li>
+</ul>
+</li>
+</ul>
+<p>{<br>  “server”: “服务器的IP地址”,<br>  “server_port”: 12306,<br>  “local_address”: “127.0.0.1”,<br>  “local_port”: 1080,<br>  “password”: “cybereits”,<br>  “timeout”: 300,<br>  “method”: “rc4-md5”<br>}</p>
+<ul>
+<li><p>开启 shadowsocks 服务器</p>
+<ul>
+<li>sudo ssserver -c /etc/shadowsocks.conf -d start</li>
+</ul>
+</li>
+<li><p>本地使用 shadowsocks</p>
+<ul>
+<li>sudo sslocal -c /etc/shadowsocks.conf -d start</li>
+</ul>
+</li>
+</ul>
+<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><ul>
+<li>添加本地代理</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git gc --aggressive</div><div class="line">git repack -a -f -d --window=250 --depth=250</div><div class="line">git config --global http.postBuffer 524288000</div><div class="line">git config --global https.postBuffer 524288000</div></pre></td></tr></table></figure>
+<ul>
+<li>添加 shadowsocks 在 1080 端口后</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global http.proxy socks5://127.0.0.1:1080</div><div class="line">git config --global https.proxy socks5://127.0.0.1:1080</div></pre></td></tr></table></figure>
+<h1 id="shell-交互"><a href="#shell-交互" class="headerlink" title="shell 交互"></a>shell 交互</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">!/usr/bin/expect -f</span></div><div class="line">spawn ssh user@my.server.com</div><div class="line">expect "assword:"</div><div class="line">send "mypassword\r"</div><div class="line">interact</div></pre></td></tr></table></figure>
+<h1 id="mysql-定时备份"><a href="#mysql-定时备份" class="headerlink" title="mysql 定时备份"></a>mysql 定时备份</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></div><div class="line"></div><div class="line">folder=~/backup/mysql</div><div class="line">time=`date +%Y%m%d%H`</div><div class="line">filename=backup</div><div class="line">host=localhost</div><div class="line">user=root</div><div class="line">password=123</div><div class="line">db=cybereits</div><div class="line"></div><div class="line">mysqldump -h$host -u$user -p$password $db|gzip&gt;$folder/$filename.$time.sql.gz</div><div class="line"></div><div class="line">find $folder -name "$filename_*.sql.gz" -type f -mtime +5 -exec rm &#123;&#125; \; &gt; /dev/null 2&gt;&amp;1</div></pre></td></tr></table></figure>
+<p>说明：</p>
+<p>代码中 time=` date +%Y%m%d%H ` 也可以写为 time=”$(date +”%Y%m%d$H”)”</p>
+<p>db：数据库名；<br>user：数据库用户名；<br>password：用户密码；<br>filename：自定义备份文件前缀标识。<br>-type f 表示查找普通类型的文件，f表示普通文件。<br>-mtime +5 按照文件的更改时间来查找文件，+5表示文件更改时间距现在5天以前；如果是 -mmin +5 表示文件更改时间距现在5分钟以前。<br>-exec rm {} \; 表示执行一段shell命令，exec选项后面跟随着所要执行的命令或脚本，然后是一对儿{ }，一个空格和一个\，最后是一个分号。<br>/dev/null 2&gt;&amp;1 把标准出错重定向到标准输出，然后扔到/DEV/NULL下面去。通俗的说，就是把所有标准输出和标准出错都扔到垃圾桶里面；其中的&amp; 表示让该命令在后台执行。</p>
+<p>为脚本添加执行权限 <code>chmod +x /usr/sbin/bakmysql.sh</code></p>
+<p>检查有没安装crond,如果没有，先安装 <code>yum -y install vixie-cron yum -y install crontabs</code></p>
+<p><code>vi /etc/crontab</code></p>
+<p>在最后一行中加入 <code>00 3 * * * root /usr/sbin/bakmysql.sh</code> 表示每天3点00分执行备份</p>
+<p>重启crontab <code>/etc/rc.d/init.d/crond restart</code> 或者 <code>service crond restart</code></p>
+<p>恢复数据备份文件：</p>
+<p>非压缩备份文件恢复：<code>mysql -u root -p dataname &lt; name2008010103.sql</code></p>
+<p>从压缩文件直接恢复：<code>gzip &lt; name2008010103.sql.gz | mysql -u root -p dataname</code> 或：<code>zcat name2008010103.sql.gz | mysql -u root -p</code></p>
+<h1 id="geth-命令行使用说明"><a href="#geth-命令行使用说明" class="headerlink" title="geth 命令行使用说明"></a>geth 命令行使用说明</h1><p>调用其它合约的方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ABI_OBJECT 合约 ABI</span></div><div class="line"><span class="comment">// DEPLOY_ADDR 合约部署地址</span></div><div class="line"><span class="comment">// 两者都可以在 etherscan 查询到</span></div><div class="line"><span class="keyword">var</span> contract = eth.contract(ABI_OBJECT).at(DEPLOY_ADDR)</div><div class="line"><span class="comment">// 解锁转出钱包（转账才需要 查询不需要）</span></div><div class="line">web3.personal.unlockAccount(<span class="string">"转出钱包地址"</span>,<span class="string">"钱包密钥"</span>,<span class="number">300</span>)  <span class="comment">// 解锁 300 秒</span></div><div class="line"><span class="comment">// 调用 ERC-20 标准的 transfer 方法</span></div><div class="line">contract.transfer.sendTransaction(<span class="string">"收款地址"</span>,<span class="string">"代币数量 * 合约 decimal"</span>, &#123; <span class="attr">from</span>: <span class="string">"转出钱包地址"</span> &#125;)</div></pre></td></tr></table></figure>
 
     </div>
 
@@ -192,7 +304,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/my-blog/2017/05/12/interviewQuestions/">有趣的面试题</a>
+                <a class="footer-post" href="/my-blog/2017/05/12/面试题/">有趣的面试题</a>
             </li>
             
             <li>

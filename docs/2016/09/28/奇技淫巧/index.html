@@ -137,7 +137,7 @@
         
 
         <!-- Post Content -->
-        <h3 id="generator-生成i内的-fibonacci数组"><a href="#generator-生成i内的-fibonacci数组" class="headerlink" title="generator 生成i内的 fibonacci数组"></a>generator 生成i内的 fibonacci数组</h3><pre><code>let i = 1000;
+        <h1 id="generator-生成i内的-fibonacci数组"><a href="#generator-生成i内的-fibonacci数组" class="headerlink" title="generator 生成i内的 fibonacci数组"></a>generator 生成i内的 fibonacci数组</h1><pre><code>let i = 1000;
 [...(function(limit){ 
     return function* (){
         let [prev, curr] = [0,1]
@@ -148,7 +148,7 @@
     }
 })(i)()]
 </code></pre><a id="more"></a>
-<h3 id="不需要中间变量-交换两个值类型变量的值得装逼进阶"><a href="#不需要中间变量-交换两个值类型变量的值得装逼进阶" class="headerlink" title="不需要中间变量,交换两个值类型变量的值得装逼进阶"></a>不需要中间变量,交换两个值类型变量的值得装逼进阶</h3><pre><code>let [a,b]=[1,2]
+<h1 id="不需要中间变量-交换两个值类型变量的值得装逼进阶"><a href="#不需要中间变量-交换两个值类型变量的值得装逼进阶" class="headerlink" title="不需要中间变量,交换两个值类型变量的值得装逼进阶"></a>不需要中间变量,交换两个值类型变量的值得装逼进阶</h1><pre><code>let [a,b]=[1,2]
 // 普通青年
 a=a+b
 b=a-b
@@ -170,10 +170,11 @@ a=(b^=a^=b)^a
 // 究极装逼方案
 b^=a^(a=b)
 </code></pre><p>为什么会这样呢?<br>因为行内的赋值写法一开始就把右侧变量的值确定下来了<br>也就是说 <code>b^=a^(a=b)</code><br>等价于 <code>b=b^a^(a=b)</code><br>等价于 <code>b=2^1^(a=2)</code><br>等价于 <code>a=2;b=2^1^2</code> – <code>a=2;b=1</code><br>也就解释了 为什么<code>a^=b^=a^=b</code>是错误的<br>因为其等价于<code>a=a^(b=b^(a=a^b))</code><br><code>a=1^(b=2^(a=1^2))</code>   // a=1,b=2<br><code>a=1^(b=2^(a=3))</code> // a被赋值为3,b=2<br><code>a=1^(b=2^3)</code>  // a=3,b=2<br><code>a=1^(b=1)</code>  // a=3,b被赋值为1<br><code>a=1^1</code> // a=1,b=1<br><code>a=0</code> // a被赋值为0,b=1  </p>
-<h3 id="不动点组合子"><a href="#不动点组合子" class="headerlink" title="不动点组合子"></a>不动点组合子</h3><pre><code>// 用于将递归匿名函数
+<h1 id="不动点组合子"><a href="#不动点组合子" class="headerlink" title="不动点组合子"></a>不动点组合子</h1><pre><code>// 将其用于将递归匿名函数
 let Y = f =&gt; (x =&gt; f(y =&gt; x(x)(y)))(x =&gt; f(y =&gt; x(x)(y)))
 let steamrollArray = a =&gt; Y(fl =&gt; i =&gt; i instanceof Array ? i.reduce((p, n) =&gt; p.concat(fl(n)), []) : i)(a)
-</code></pre><p>采用Y-combinator(fixed-point combinator)的方式去实现匿名函数递归.<br>参考<a href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%8A%A8%E7%82%B9%E7%BB%84%E5%90%88%E5%AD%90" target="_blank" rel="external">不动点组合子</a></p>
+steamrollArray([1,[2,3],[[[4]],[5]]]) // 结果是 [1,2,3,4,5]
+</code></pre><p>采用 Y-combinator(fixed-point combinator) 的方式去实现匿名函数递归.<br>参考 <a href="https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%8A%A8%E7%82%B9%E7%BB%84%E5%90%88%E5%AD%90" target="_blank" rel="external">不动点组合子</a></p>
 
     </div>
 
@@ -225,7 +226,7 @@ let steamrollArray = a =&gt; Y(fl =&gt; i =&gt; i instanceof Array ? i.reduce((p
             </li>
             
             <li>
-                <a class="footer-post" href="/my-blog/2017/05/12/interviewQuestions/">有趣的面试题</a>
+                <a class="footer-post" href="/my-blog/2017/05/12/面试题/">有趣的面试题</a>
             </li>
             
             <li>

@@ -169,7 +169,6 @@ module.exports = {
 接下来,在`book.json`当前目录`gitbook install`安装该插件  
 插件安装完成后 `gitbook serve`启动服务器就可以按到我们的插件已经正常运行了
 
-
 ## 提高开发时的效率
 
 虽然,上面我们使用了gitbook自带的插件机制将自定义的部分作为一个单独的插件库.  
