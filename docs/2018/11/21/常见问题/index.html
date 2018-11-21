@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="marsoln&#39;s blog"/>
+        <meta property="og:title" content="常见问题"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>shell 指令 - marsoln&#39;s blog</title>
+    <title>常见问题 - marsoln&#39;s blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -103,9 +103,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -113,23 +111,64 @@
     <div class="logo">
         <a href="/my-blog/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">#shell 指令</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/my-blog/2018/03/15/常用指令/">
-        <span class="archive-date">
-            2018-03-15
-        </span>
-        常用指令
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/my-blog/2018/11/21/常见问题/">
+                常见问题
+            </a>
+        </h1>
+        <div class="post-info">
+            <span class="date">2018-11-21</span>
+            <a href="#disqus_thread" class="comments">留言</a>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="给自己的网站添加-chrome-的-tab-搜索支持"><a href="#给自己的网站添加-chrome-的-tab-搜索支持" class="headerlink" title="给自己的网站添加 chrome 的 tab 搜索支持"></a>给自己的网站添加 chrome 的 tab 搜索支持</h2><p>chrome 的 tab 搜索是源自其搜索引擎配置 chrome://settings/searchEngine</p>
+<p>如果你希望将自己的网站自动添加到其搜索引擎中去 需要如下两步：</p>
+<ol>
+<li>添加 <code>link</code> 到网站的 <code>head</code> 中 <code>&lt;link rel=&quot;search&quot; type=&quot;application/opensearchdescription+xml&quot; title=&quot;XXXX&quot; href=&quot;/xxx.xml&quot; /&gt;</code></li>
+<li>配置 <code>xxx.xml</code>:</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">OpenSearchDescription</span> <span class="attr">xmlns</span>=<span class="string">"http://a9.com/-/spec/opensearch/1.1/"</span> <span class="attr">xmlns:moz</span>=<span class="string">"http://www.mozilla.org/2006/browser/search/"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ShortName</span>&gt;</span>网站缩写<span class="tag">&lt;/<span class="name">ShortName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Description</span>&gt;</span></div><div class="line">网站描述</div><div class="line"><span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">InputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">InputEncoding</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Image</span> <span class="attr">width</span>=<span class="string">"16"</span> <span class="attr">height</span>=<span class="string">"16"</span> <span class="attr">type</span>=<span class="string">"image/x-icon"</span>&gt;</span>favicon 链接<span class="tag">&lt;/<span class="name">Image</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Url</span> <span class="attr">type</span>=<span class="string">"text/html"</span> <span class="attr">method</span>=<span class="string">"get"</span> <span class="attr">template</span>=<span class="string">"http://www.yoursite.com/search/?query=&#123;searchTerms&#125;"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">OpenSearchDescription</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>template</code> 即网站配置的搜索链接格式，关键字站位符为 <code>{searchTerms}</code></p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/my-blog/tags/问题/">#问题</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+
+
+    </div>
+    
+
 </div>
-            
         </section>
+
     </div>
 </div>
 

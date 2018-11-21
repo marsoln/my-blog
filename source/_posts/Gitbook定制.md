@@ -12,8 +12,8 @@ tags: Gitbook 定制
 
 > 如果只是需要做css定制而不希望改变DOM结构的话,可以借助菜单节点的 `data-level` 属性去实现.
 
-
 以default-theme为例
+
 ```html
     {% for part in summary.parts %}
         {% if part.title %}
@@ -62,43 +62,43 @@ Gitbook默认的Theme提供了style自定义的功能.
 ```javascript
 "gitbook": {
     "properties": {
-      "styles": {
+    "styles": {
         "type": "object",
         "title": "Custom Stylesheets",
         "properties": {
-          "website": {
+        "website": {
             "title": "Stylesheet for website output",
             "default": "styles/website.css"
-          },
-          "pdf": {
+        },
+        "pdf": {
             "title": "Stylesheet for PDF output",
             "default": "styles/pdf.css"
-          },
-          "epub": {
+        },
+        "epub": {
             "title": "Stylesheet for ePub output",
             "default": "styles/epub.css"
-          },
-          "mobi": {
+        },
+        "mobi": {
             "title": "Stylesheet for Mobi output",
             "default": "styles/mobi.css"
-          },
-          "ebook": {
+        },
+        "ebook": {
             "title": "Stylesheet for ebook outputs (PDF, ePub, Mobi)",
             "default": "styles/ebook.css"
-          },
-          "print": {
+        },
+        "print": {
             "title": "Stylesheet to replace default ebook css",
             "default": "styles/print.css"
-          }
         }
-      },
-      "showLevel": {
+        }
+    },
+    "showLevel": {
         "type": "boolean",
         "title": "Show level indicator in TOC",
         "default": false
-      }
     }
-  }
+    }
+}
 ```
 
 可以在自己项目中的book.json中做自定义配置,譬如我希望使用项目根目录名为 `websiteStyle.css` 的样式文件覆盖默认主题在生成website时的部分样式,就可以:
@@ -127,28 +127,32 @@ Gitbook默认的Theme提供了style自定义的功能.
 - 首先,我们需要创建一个新的repo,然后在其中`npm init`初始化`package.json`配置文件.
 
 注意该配置文件中必须在`engines`中指明`gitbook`的版本
+
 ```json
     "engines": {
         "gitbook": ">=3.2.2"
     }
 ```
+
 如果你想要自定义一些配置节点也可以在`package.json`中声明. 
 譬如,现在需要一个keywords的配置,是一个字符串值,用来指定页面渲染后的meta中的keywords,那么我们可以写作:
+
 ```json
-    	"gitbook":{
-		"properties":{
-			"keywords":{
-				"type":"string",
-				"default":"",
-				"description":"meta keywords config"
-			}
-		}
-	}
+        "gitbook":{
+        "properties":{
+            "keywords":{
+                "type":"string",
+                "default":"",
+                "description":"meta keywords config"
+            }
+        }
+    }
 ```
 
 - 接下来在入口文件中可以使用插件机制提供的hook来获取指定的config:
 
 index.js
+
 ```javascript
 module.exports = {
     hooks: {
@@ -315,86 +319,86 @@ let structureMetaData = [];
 
 
 /**
- * generate the content of summary.md
- */
+* generate the content of summary.md
+*/
 let generateContent = function() {
-  if (structureMetaData.length > 0) {
+if (structureMetaData.length > 0) {
     let contentArr = ['# SUMMARY\n\n'];
     let _index = contentArr.length;
     structureMetaData.forEach(meta => {
-      contentArr[_index++] = `${' '.repeat(meta['depth'] * 4)}`; // indents of menu depth level
-      if (meta.hash) {
+    contentArr[_index++] = `${' '.repeat(meta['depth'] * 4)}`; // indents of menu depth level
+    if (meta.hash) {
         contentArr[_index++] = `* [${meta.title}](./${meta.filepath}#${meta.hash})`;
-      } else {
+    } else {
         contentArr[_index++] = `* [${meta.title}](./${meta.filepath})`;
-      }
-      contentArr[_index++] = '\n';
+    }
+    contentArr[_index++] = '\n';
     });
     return contentArr.join('');
-  } else {
+} else {
     console.error(`未读取到有效的 markdown 目录结构信息.`);
     process.exit(-1);
-  }
+}
 };
 
 /**
- * Rewrite the content into file
- * @param {string} filepath
- * @param {string} content
- * @param {string} encoding
- */
+* Rewrite the content into file
+* @param {string} filepath
+* @param {string} content
+* @param {string} encoding
+*/
 let rewriteFile = function(filepath, content = '', encoding = 'utf-8') {
-  try {
+try {
     if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
+    fs.unlinkSync(filepath);
     }
-  } catch (e) {
+} catch (e) {
     console.error(e.message);
-  } finally {
+} finally {
     fs.writeFile(filepath, content, encoding, (err) => {
-      if (err) {
+    if (err) {
         console.error(err.message);
         process.exit(-1);
-      }
+    }
     });
-  }
+}
 };
 
 /**
- * Create summary.md
- */
+* Create summary.md
+*/
 let generateSummaryFile = function() {
-  let filepath = path.join(__dirname, DOC_DIR, 'SUMMARY.md');
-  rewriteFile(filepath, generateContent());
+let filepath = path.join(__dirname, DOC_DIR, 'SUMMARY.md');
+rewriteFile(filepath, generateContent());
 };
 
 glob("**/*.md", function(err, files) {
-  if (err) {
+if (err) {
     console.error(err.message);
     process.exit(-1);
-  } else {
+} else {
     files.forEach(filepath => {
-      let absoluteFilePath = path.join(__dirname, DOC_DIR, filepath);
-      let originContent = fs.readFileSync(absoluteFilePath, 'utf-8');
+    let absoluteFilePath = path.join(__dirname, DOC_DIR, filepath);
+    let originContent = fs.readFileSync(absoluteFilePath, 'utf-8');
 
-      /**
-       * If the content is not empty,
-       * try to split it into lines.
-       * then get the titleReg-matched lines,
-       * ensure that each of them has an unique anchor name,
-       * no matter whether they were linked or not,
-       * cause we need 2 generate the summary menus and they need hash
-       */
-      if (originContent.length > 0) {
+    /**
+    * If the content is not empty,
+    * try to split it into lines.
+    * then get the titleReg-matched lines,
+    * ensure that each of them has an unique anchor name,
+    * no matter whether they were linked or not,
+    * cause we need 2 generate the summary menus and they need hash
+    */
+    if (originContent.length > 0) {
         let lines = originContent.split('\n');
         let newLines = lines.map(lineContent => {
-          let title = filepath.split('/').reverse()[0];
-          let hash = null;
-          let depth = 0;
-          let _title = titleReg.exec(lineContent);
-          let _hash = titleHashReg.exec(lineContent);
+        let title = filepath.split('/').reverse()[0];
+        let hash = null;
+        let depth = 0;
+        let _title = titleReg.exec(lineContent);
+        let _hash = titleHashReg.exec(lineContent);
 
-          if (_title && _title.length > 0) {
+        if (_title && _title.length > 0) {
             // depth begins from 0
             // which means it is just one less than the amount of '#' in front of the line
             depth = _title[0].split(/\s/ig)[0].length - 1;
@@ -402,31 +406,31 @@ glob("**/*.md", function(err, files) {
 
             // generate the hash anchors for the titles those don't have any anchor
             if (_hash && _hash.length > 0) {
-              hash = _hash[_hash.length - 1].trim();
+            hash = _hash[_hash.length - 1].trim();
             } else {
-              // append the hash code to the end of line
-              hash = borschikHash(title);
-              lineContent = `${lineContent} {#${hash}}`;
+            // append the hash code to the end of line
+            hash = borschikHash(title);
+            lineContent = `${lineContent} {#${hash}}`;
             }
 
             // the meta data of the structures for the summary.md
             structureMetaData[structureMetaData.length] = {
-              filepath,
-              title,
-              depth,
-              hash
+            filepath,
+            title,
+            depth,
+            hash
             };
-          }
-          return lineContent;
+        }
+        return lineContent;
         });
 
         // rewirte the new content into file
         let fileContent = newLines.join('\n');
         rewriteFile(filepath, fileContent);
-      }
+    }
     });
     generateSummaryFile();
-  }
+}
 });
 
 ```

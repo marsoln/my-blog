@@ -157,7 +157,11 @@
 <h2 id="Android-微信X5"><a href="#Android-微信X5" class="headerlink" title="Android 微信X5"></a>Android 微信X5</h2><ul>
 <li>不支持字符串模板</li>
 </ul>
-<h1 id="NODEJS"><a href="#NODEJS" class="headerlink" title="NODEJS"></a>NODEJS</h1><h2 id="MSBuild-Error-MSB4132-错误"><a href="#MSBuild-Error-MSB4132-错误" class="headerlink" title="MSBuild Error MSB4132 错误"></a>MSBuild Error MSB4132 错误</h2><p>该错误是由于node-gyp默认使用2.0版本的msbuild,可能和当前机器上的msbuild版本不一致导致的.</p>
+<h1 id="NODEJS"><a href="#NODEJS" class="headerlink" title="NODEJS"></a>NODEJS</h1><h2 id="node-amqp-类库心跳默认没有开启"><a href="#node-amqp-类库心跳默认没有开启" class="headerlink" title="node_amqp 类库心跳默认没有开启"></a>node_amqp 类库心跳默认没有开启</h2><p>在使用 node_amqp 类库时连接 rabbitMQ 的连接如果没有正确断开则会使 rabbitMQ 服务中的 connection 越来越多，原因就是因为 <code>heartbeat</code> 默认值是 <code>false</code>，而这个属性没有在默认的配置中出现，而且没有在文档的配置说明中进行阐述，只是在一个非常不显眼的角落里顺带提了一句:</p>
+<blockquote>
+<p>The heartbeat setting sets the heartbeat interval (in seconds) for the connection. There is no default for this option meaning no heartbeating is taking place.</p>
+</blockquote>
+<h2 id="MSBuild-Error-MSB4132-错误"><a href="#MSBuild-Error-MSB4132-错误" class="headerlink" title="MSBuild Error MSB4132 错误"></a>MSBuild Error MSB4132 错误</h2><p>该错误是由于node-gyp默认使用2.0版本的msbuild,可能和当前机器上的msbuild版本不一致导致的.</p>
 <blockquote>
 <p>msbuild error msb4132 the tools version 2.0 is unrecognized. available tools versions are 4.0</p>
 </blockquote>
@@ -234,7 +238,7 @@
 </li>
 </ul>
 <h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><pre><code>nginx 在代理同一个服务器上的多个 nodejs 实例时，当 nodejs 中有使用了 socket.io ，就会出现不断 connect 的问题，这是因为 nginx 在代理时没有把套接字链接视作一个长链接导致的，配置 upsteam 的 keepalive 之后便可以解决该问题。
-</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">upstream upstream_host &#123;</div><div class="line">	server 127.0.0.1:8090;</div><div class="line">	keepalive 64;</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ^~ /socket &#123;</div><div class="line">		proxy_pass https://upstream_host;</div><div class="line">		proxy_redirect off;</div><div class="line">		proxy_pass_request_headers on;</div><div class="line">		proxy_http_version 1.1;</div><div class="line">		proxy_set_header Upgrade $http_upgrade;</div><div class="line">		proxy_set_header Connection "upgrade";</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">upstream upstream_host &#123;</div><div class="line">	server 127.0.0.1:8090;</div><div class="line">	keepalive 64;</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ^~ /socket &#123;</div><div class="line">		proxy_pass https://upstream_host;</div><div class="line">		proxy_http_version 1.1;</div><div class="line">		proxy_set_header Upgrade $http_upgrade;</div><div class="line">		proxy_set_header Connection "upgrade";</div><div class="line">		proxy_set_header Host $host;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h1 id="DEBIAN"><a href="#DEBIAN" class="headerlink" title="DEBIAN"></a>DEBIAN</h1><p>使用 puppeteer 时会报依赖错误，普通用户只需要安装依赖即可解决</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line"></div><div class="line">sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget --fix-missing</div></pre></td></tr></table></figure>
 
@@ -284,6 +288,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/my-blog/2018/11/21/常见问题/">常见问题</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/my-blog/2018/03/15/常用指令/">常用指令</a>
             </li>
             
@@ -293,10 +301,6 @@
             
             <li>
                 <a class="footer-post" href="/my-blog/2017/03/02/Gitbook定制/">Gitbook定制</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/my-blog/2016/10/01/好玩的社区/">好玩的社区</a>
             </li>
             
         </ul>
